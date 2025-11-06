@@ -1,0 +1,963 @@
+<html>
+  
+    <head>
+     
+     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+      <style>
+        .card {
+            font-family: 'Merriweather', serif !important;
+            
+        }
+
+        #select-node.form-select {
+            font-family: 'Merriweather', serif !important;
+            background-color: #dac751 !important;
+            color: #222 !important;
+            border: 1px solid #dac751 !important;
+            border-radius: 6px !important;
+            font-size: 12px !important;
+            height: 25px !important;
+            box-shadow: none !important;
+            -webkit-appearance: none !important;
+        }
+    </style>
+  
+
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+            /* Outer container */
+            div#select-menu.card-header {
+                background-color: #fcf8f5 !important;
+                padding: 5px 10px !important;
+                border-radius: 8px !important;
+            }
+
+            /* Actual dropdown */
+            select#select-node.form-select {
+                font-size: 12px !important;
+                color: #222 !important;
+                background-color: #dac751 !important;
+                border: 1px solid #dac751 !important;
+                border-radius: 6px !important;
+                height: 35px !important;
+            }
+
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1050px;
+                 background-color: #fcf8f5;
+                 border: 1px solid #dac751;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 1050px;
+                 background-color:#8c8c8c;
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background:  #5a7684; /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:300px;
+                 height:18px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%; background-color:#fcf8f5;">
+            
+                <div id="select-menu" class="card-header" style="background-color: #fcf8f5 !important;">
+                    <div class="row no-gutters">
+                      <div class="col-auto" style="padding-bottom: 0.2rem !important;">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            style="background-color: #dac751 !important; color: #222 !important; border: 1px solid #dac751 !important; border-radius: 6px !important; font-size: 12px !important; height: 35px !important;"
+                            >
+                                <option selected>Select a Character or Novel</option>
+                                
+                                    <option value="Andoche Finot">Andoche Finot</option>
+                                
+                                    <option value="A PRINCE OF BOHEMIA">A PRINCE OF BOHEMIA</option>
+                                
+                                    <option value="THE DEPUTY OF ARCIS">THE DEPUTY OF ARCIS</option>
+                                
+                                    <option value="A DAUGHTER OF EVE">A DAUGHTER OF EVE</option>
+                                
+                                    <option value="URSULA">URSULA</option>
+                                
+                                    <option value="SCENES FROM A COURTESANS LIFE">SCENES FROM A COURTESANS LIFE</option>
+                                
+                                    <option value="THE TWO BROTHERS">THE TWO BROTHERS</option>
+                                
+                                    <option value="BUREAUCRACY">BUREAUCRACY</option>
+                                
+                                    <option value="THE ILLUSTRIOUS GAUDISSART">THE ILLUSTRIOUS GAUDISSART</option>
+                                
+                                    <option value="THE MAGIC SKIN">THE MAGIC SKIN</option>
+                                
+                                    <option value="A DISTINGUISHED PROVINCIAL AT PARIS">A DISTINGUISHED PROVINCIAL AT PARIS</option>
+                                
+                                    <option value="THE FIRM OF NUCINGEN">THE FIRM OF NUCINGEN</option>
+                                
+                                    <option value="BEATRIX">BEATRIX</option>
+                                
+                                    <option value="RISE AND FALL OF CESAR BIROTTEAU">RISE AND FALL OF CESAR BIROTTEAU</option>
+                                
+                                    <option value="THE MUSE OF THE DEPARTMENT">THE MUSE OF THE DEPARTMENT</option>
+                                
+                                    <option value="A START IN LIFE">A START IN LIFE</option>
+                                
+                                    <option value="Comte Clément des Lupeaulx">Comte Clément des Lupeaulx</option>
+                                
+                                    <option value="THE LESSER BOURGEOISIE">THE LESSER BOURGEOISIE</option>
+                                
+                                    <option value="EVE AND DAVID">EVE AND DAVID</option>
+                                
+                                    <option value="THE COLLECTION OF ANTIQUITIES">THE COLLECTION OF ANTIQUITIES</option>
+                                
+                                    <option value="EUGENIE GRANDET">EUGENIE GRANDET</option>
+                                
+                                    <option value="SONS OF THE SOIL">SONS OF THE SOIL</option>
+                                
+                                    <option value="Comte Maxime de Trailles">Comte Maxime de Trailles</option>
+                                
+                                    <option value="UNCONSCIOUS COMEDIANS">UNCONSCIOUS COMEDIANS</option>
+                                
+                                    <option value="THE MARRIAGE CONTRACT">THE MARRIAGE CONTRACT</option>
+                                
+                                    <option value="GOBSECK">GOBSECK</option>
+                                
+                                    <option value="THE SECRETS OF THE PRINCESSE DE CADIGNAN">THE SECRETS OF THE PRINCESSE DE CADIGNAN</option>
+                                
+                                    <option value="THE COMMISSION IN LUNACY">THE COMMISSION IN LUNACY</option>
+                                
+                                    <option value="COUSIN BETTY">COUSIN BETTY</option>
+                                
+                                    <option value="FATHER GORIOT">FATHER GORIOT</option>
+                                
+                                    <option value="A MAN OF BUSINESS">A MAN OF BUSINESS</option>
+                                
+                                    <option value="PAZ">PAZ</option>
+                                
+                                    <option value="Duc de Rhétoré">Duc de Rhétoré</option>
+                                
+                                    <option value="LETTERS OF TWO BRIDES">LETTERS OF TWO BRIDES</option>
+                                
+                                    <option value="ALBERT SAVARUS">ALBERT SAVARUS</option>
+                                
+                                    <option value="MODESTE MIGNON">MODESTE MIGNON</option>
+                                
+                                    <option value="Etienne Lousteau">Etienne Lousteau</option>
+                                
+                                    <option value="Eugène de Rastignac">Eugène de Rastignac</option>
+                                
+                                    <option value="THE BALL AT SCEAUX">THE BALL AT SCEAUX</option>
+                                
+                                    <option value="MELMOTH RECONCILED">MELMOTH RECONCILED</option>
+                                
+                                    <option value="THE VILLAGE RECTOR">THE VILLAGE RECTOR</option>
+                                
+                                    <option value="AN HISTORICAL MYSTERY">AN HISTORICAL MYSTERY</option>
+                                
+                                    <option value="ANOTHER STUDY OF WOMAN">ANOTHER STUDY OF WOMAN</option>
+                                
+                                    <option value="STUDY OF A WOMAN">STUDY OF A WOMAN</option>
+                                
+                                    <option value="Ferdinand du Tillet">Ferdinand du Tillet</option>
+                                
+                                    <option value="THE BROTHERHOOD OF CONSOLATION">THE BROTHERHOOD OF CONSOLATION</option>
+                                
+                                    <option value="PIERRETTE">PIERRETTE</option>
+                                
+                                    <option value="A WOMAN OF THIRTY">A WOMAN OF THIRTY</option>
+                                
+                                    <option value="Horace Bianchon">Horace Bianchon</option>
+                                
+                                    <option value="HONORINE">HONORINE</option>
+                                
+                                    <option value="COUSIN PONS">COUSIN PONS</option>
+                                
+                                    <option value="THE ATHEISTS MASS">THE ATHEISTS MASS</option>
+                                
+                                    <option value="A SECOND HOME">A SECOND HOME</option>
+                                
+                                    <option value="Jean Francois du Bruel">Jean Francois du Bruel</option>
+                                
+                                    <option value="Jean-Jacques Bixiou">Jean-Jacques Bixiou</option>
+                                
+                                    <option value="GAUDISSART II">GAUDISSART II</option>
+                                
+                                    <option value="THE PURSE">THE PURSE</option>
+                                
+                                    <option value="Madame Florine Nathan">Madame Florine Nathan</option>
+                                
+                                    <option value="Raoul Nathan">Raoul Nathan</option>
+                                
+                                    <option value="Émile Blondet">Émile Blondet</option>
+                                
+                                    <option value="Henri de Marsay">Henri de Marsay</option>
+                                
+                                    <option value="THE DUCHESSE OF LANGEAIS">THE DUCHESSE OF LANGEAIS</option>
+                                
+                                    <option value="THE GIRL WITH THE GOLDEN EYES">THE GIRL WITH THE GOLDEN EYES</option>
+                                
+                                    <option value="THE THIRTEEN">THE THIRTEEN</option>
+                                
+                                    <option value="THE LILY OF THE VALLEY">THE LILY OF THE VALLEY</option>
+                                
+                                    <option value="Lady Arabella Dudley">Lady Arabella Dudley</option>
+                                
+                                    <option value="Lord Dudley">Lord Dudley</option>
+                                
+                                    <option value="Mademoiselle des Touches">Mademoiselle des Touches</option>
+                                
+                                    <option value="Francois-Claude-Marie Godeschal">Francois-Claude-Marie Godeschal</option>
+                                
+                                    <option value="COLONEL CHABERT">COLONEL CHABERT</option>
+                                
+                                    <option value="Charles Claparon">Charles Claparon</option>
+                                
+                                    <option value="Joseph Bridau">Joseph Bridau</option>
+                                
+                                    <option value="PIERRE GRASSOU">PIERRE GRASSOU</option>
+                                
+                                    <option value="Baron de Nucingen">Baron de Nucingen</option>
+                                
+                                    <option value="SARRASINE">SARRASINE</option>
+                                
+                                    <option value="Martial de La Roche-Hugon">Martial de La Roche-Hugon</option>
+                                
+                                    <option value="DOMESTIC PEACE">DOMESTIC PEACE</option>
+                                
+                                    <option value="Comte de Granville">Comte de Granville</option>
+                                
+                                    <option value="Jacques Collin">Jacques Collin</option>
+                                
+                                    <option value="Baron de Canalis">Baron de Canalis</option>
+                                
+                                    <option value="TWO POETS">TWO POETS</option>
+                                
+                                    <option value="Comte Félix de Vandenesse">Comte Félix de Vandenesse</option>
+                                
+                                    <option value="Duchesse de Maufrigneuse">Duchesse de Maufrigneuse</option>
+                                
+                                    <option value="MADAME FIRMIANI">MADAME FIRMIANI</option>
+                                
+                                    <option value="Desplein">Desplein</option>
+                                
+                                    <option value="Duc de Navarreins">Duc de Navarreins</option>
+                                
+                                    <option value="AN OLD MAID">AN OLD MAID</option>
+                                
+                                    <option value="General de Montriveau">General de Montriveau</option>
+                                
+                                    <option value="Comtesse de Serizy">Comtesse de Serizy</option>
+                                
+                                    <option value="Marquis de Ronquerolles">Marquis de Ronquerolles</option>
+                                
+                                    <option value="Duc de Grandlieu">Duc de Grandlieu</option>
+                                
+                                    <option value="Baronne Delphine de Nucingen">Baronne Delphine de Nucingen</option>
+                                
+                                    <option value="Stidmann">Stidmann</option>
+                                
+                                    <option value="Virginie Blondet">Virginie Blondet</option>
+                                
+                                    <option value="Leon de Lora">Leon de Lora</option>
+                                
+                                    <option value="Lucien de Rubempré">Lucien de Rubempré</option>
+                                
+                                    <option value="Félicien Vernou">Félicien Vernou</option>
+                                
+                                    <option value="Marechal de Montcornet">Marechal de Montcornet</option>
+                                
+                                    <option value="Claude Vignon">Claude Vignon</option>
+                                
+                                    <option value="Hippolyte Schinner">Hippolyte Schinner</option>
+                                
+                                    <option value="Madame Josephine du Ronceret">Madame Josephine du Ronceret</option>
+                                
+                                    <option value="Comte de Serizy">Comte de Serizy</option>
+                                
+                                    <option value="Felix Gaudissart">Felix Gaudissart</option>
+                                
+                                    <option value="Baronne Marie-Louise du Châtelet">Baronne Marie-Louise du Châtelet</option>
+                                
+                                    <option value="Duc de Lenoncourt">Duc de Lenoncourt</option>
+                                
+                                    <option value="Madame Roguin">Madame Roguin</option>
+                                
+                                    <option value="VENDETTA">VENDETTA</option>
+                                
+                                    <option value="AT THE SIGN OF THE CAT AND RACKET">AT THE SIGN OF THE CAT AND RACKET</option>
+                                
+                                    <option value="Vicomtesse de Beauséant">Vicomtesse de Beauséant</option>
+                                
+                                    <option value="THE DESERTED WOMAN">THE DESERTED WOMAN</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-dark" onclick="neighbourhoodHighlight({nodes: []});"
+                            style="background-color: #444 !important; color: #fff !important; border-color: #444 !important;">Reset Filters</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-auto ">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Filter network by...</option>
+                        <option value="edge">Novel/character connections...</option>
+                        <option value="node">Character or novel properties...</option>
+                        
+                    </select>
+                  </div>
+                  <div class="col-auto ">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select filter...</option>
+                       
+                    
+                    </select>
+                  </div>
+                  <div class="col-auto ">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-auto ">
+                   <button type="button" 
+                        class="btn btn-dark" 
+                        onclick="highlightFilter(filter);" 
+                        style="background-color: #444 !important; color: #fff !important; border-color: #444 !important;">
+                    Filter
+                </button>
+                  </div>
+                  <div class="col-auto ">
+                    <button type="button" class="btn btn-dark" onclick="clearFilter(true)"
+                    style="background-color: #444 !important; color: #fff !important; border-color: #444 !important;">Reset Filters</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+const propertyTitleMap = {
+                        node: {
+                            type: "Node Type (Characters or Novels)",
+                            scene: "Novels by Scene from La Comedie Humaine"
+                        },
+                        edge: {
+                            from: "From Character(s)",
+                            to: "To Novel(s)",
+                        }
+                    };
+
+const allowedNodeProps = ['type', 'scene']
+const allowedEdgeProps = ['from', 'to']
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              for (let each in allNodes) {
+    if (allNodes[each].type === 'character') {
+        delete allNodes[each].scene;
+    }
+}
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                        let selectedProperty = arguments[0];
+valueControl.clear();
+valueControl.clearOptions();
+filter['value'] = [];
+
+if (filter['item'] === 'node') {
+    for (let each in allNodes) {
+        let val = allNodes[each][selectedProperty];
+         if (val === null || val === undefined || Number.isNaN(val)) continue;
+
+       
+ // skip missing values
+        valueControl.addOption({
+            id: val,
+            title: val
+        });
+    }
+}
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                       if (arguments[0] === 'edge') {
+    for (let each in allEdges) {
+        if (!allEdges.hasOwnProperty(each)) continue;
+
+        for (let eachProp in allEdges[each]) {
+            if (!allEdges[each].hasOwnProperty(eachProp)) continue;
+            if (!allowedEdgeProps.includes(eachProp)) continue;
+
+            propControl.addOption({
+                id: eachProp,
+                title: propertyTitleMap['edge'][eachProp]
+            });
+        }
+    }
+}
+ else if (arguments[0] === 'node') {
+            for (let each in allNodes) {
+                if (!allNodes.hasOwnProperty(each)) continue;
+                
+                for (let eachProp in allNodes[each]) {
+                    if (!allNodes[each].hasOwnProperty(eachProp)) continue;
+                    if (!allowedNodeProps.includes(eachProp)) continue;
+
+                    propControl.addOption({
+                        id: eachProp,
+                        title: propertyTitleMap['node'][eachProp]
+                    });
+                }
+            }
+        }
+  
+        propControl.refreshOptions(false);
+    };
+};
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                        // populate property dropdown when user selects node or edge
+    }
+
+                  
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#5a7684", "id": "Andoche Finot", "label": "Andoche Finot", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": " #1a1a40", "id": "A PRINCE OF BOHEMIA", "label": "A PRINCE OF BOHEMIA", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#631d1d", "id": "THE DEPUTY OF ARCIS", "label": "THE DEPUTY OF ARCIS", "scene": "SCENES DE LA VIE POLITIQUE", "shape": "square", "size": 60, "type": "novel"}, {"color": "#9b8579", "id": "A DAUGHTER OF EVE", "label": "A DAUGHTER OF EVE", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 60, "type": "novel"}, {"color": "#e3b564", "id": "URSULA", "label": "URSULA", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 50, "type": "novel"}, {"color": " #1a1a40", "id": "SCENES FROM A COURTESANS LIFE", "label": "SCENES FROM A COURTESANS LIFE", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 60, "type": "novel"}, {"color": "#e3b564", "id": "THE TWO BROTHERS", "label": "THE TWO BROTHERS", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 60, "type": "novel"}, {"color": " #1a1a40", "id": "BUREAUCRACY", "label": "BUREAUCRACY", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "THE ILLUSTRIOUS GAUDISSART", "label": "THE ILLUSTRIOUS GAUDISSART", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#b97a7a", "id": "THE MAGIC SKIN", "label": "THE MAGIC SKIN", "scene": "ETUDES PHILOSOPHIQUES", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "A DISTINGUISHED PROVINCIAL AT PARIS", "label": "A DISTINGUISHED PROVINCIAL AT PARIS", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 60, "type": "novel"}, {"color": " #1a1a40", "id": "THE FIRM OF NUCINGEN", "label": "THE FIRM OF NUCINGEN", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#9b8579", "id": "BEATRIX", "label": "BEATRIX", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 60, "type": "novel"}, {"color": " #1a1a40", "id": "RISE AND FALL OF CESAR BIROTTEAU", "label": "RISE AND FALL OF CESAR BIROTTEAU", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "THE MUSE OF THE DEPARTMENT", "label": "THE MUSE OF THE DEPARTMENT", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 60, "type": "novel"}, {"color": "#9b8579", "id": "A START IN LIFE", "label": "A START IN LIFE", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#5a7684", "id": "Comte Cl\u00e9ment des Lupeaulx", "label": "Comte Cl\u00e9ment des Lupeaulx", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": " #1a1a40", "id": "THE LESSER BOURGEOISIE", "label": "THE LESSER BOURGEOISIE", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "EVE AND DAVID", "label": "EVE AND DAVID", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "THE COLLECTION OF ANTIQUITIES", "label": "THE COLLECTION OF ANTIQUITIES", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#e3b564", "id": "EUGENIE GRANDET", "label": "EUGENIE GRANDET", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#a5a58d", "id": "SONS OF THE SOIL", "label": "SONS OF THE SOIL", "scene": "SCENES DE LA VIE DE CAMPAGNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#5a7684", "id": "Comte Maxime de Trailles", "label": "Comte Maxime de Trailles", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": " #1a1a40", "id": "UNCONSCIOUS COMEDIANS", "label": "UNCONSCIOUS COMEDIANS", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#9b8579", "id": "THE MARRIAGE CONTRACT", "label": "THE MARRIAGE CONTRACT", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#9b8579", "id": "GOBSECK", "label": "GOBSECK", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": " #1a1a40", "id": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "label": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#9b8579", "id": "THE COMMISSION IN LUNACY", "label": "THE COMMISSION IN LUNACY", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 50, "type": "novel"}, {"color": " #1a1a40", "id": "COUSIN BETTY", "label": "COUSIN BETTY", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": " #1a1a40", "id": "FATHER GORIOT", "label": "FATHER GORIOT", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 50, "type": "novel"}, {"color": " #1a1a40", "id": "A MAN OF BUSINESS", "label": "A MAN OF BUSINESS", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#9b8579", "id": "PAZ", "label": "PAZ", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#5a7684", "id": "Duc de Rh\u00e9tor\u00e9", "label": "Duc de Rh\u00e9tor\u00e9", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#9b8579", "id": "LETTERS OF TWO BRIDES", "label": "LETTERS OF TWO BRIDES", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#9b8579", "id": "ALBERT SAVARUS", "label": "ALBERT SAVARUS", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#9b8579", "id": "MODESTE MIGNON", "label": "MODESTE MIGNON", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#5a7684", "id": "Etienne Lousteau", "label": "Etienne Lousteau", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": "#5a7684", "id": "Eug\u00e8ne de Rastignac", "label": "Eug\u00e8ne de Rastignac", "scene": NaN, "shape": "dot", "size": 70, "type": "character"}, {"color": "#9b8579", "id": "THE BALL AT SCEAUX", "label": "THE BALL AT SCEAUX", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#b97a7a", "id": "MELMOTH RECONCILED", "label": "MELMOTH RECONCILED", "scene": "ETUDES PHILOSOPHIQUES", "shape": "square", "size": 30, "type": "novel"}, {"color": "#a5a58d", "id": "THE VILLAGE RECTOR", "label": "THE VILLAGE RECTOR", "scene": "SCENES DE LA VIE DE CAMPAGNE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#631d1d", "id": "AN HISTORICAL MYSTERY", "label": "AN HISTORICAL MYSTERY", "scene": "SCENES DE LA VIE POLITIQUE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#9b8579", "id": "ANOTHER STUDY OF WOMAN", "label": "ANOTHER STUDY OF WOMAN", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 50, "type": "novel"}, {"color": "#9b8579", "id": "STUDY OF A WOMAN", "label": "STUDY OF A WOMAN", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Ferdinand du Tillet", "label": "Ferdinand du Tillet", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#631d1d", "id": "THE BROTHERHOOD OF CONSOLATION", "label": "THE BROTHERHOOD OF CONSOLATION", "scene": "SCENES DE LA VIE POLITIQUE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#e3b564", "id": "PIERRETTE", "label": "PIERRETTE", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#9b8579", "id": "A WOMAN OF THIRTY", "label": "A WOMAN OF THIRTY", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#5a7684", "id": "Horace Bianchon", "label": "Horace Bianchon", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": "#9b8579", "id": "HONORINE", "label": "HONORINE", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 40, "type": "novel"}, {"color": " #1a1a40", "id": "COUSIN PONS", "label": "COUSIN PONS", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#9b8579", "id": "THE ATHEISTS MASS", "label": "THE ATHEISTS MASS", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#9b8579", "id": "A SECOND HOME", "label": "A SECOND HOME", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#5a7684", "id": "Jean Francois du Bruel", "label": "Jean Francois du Bruel", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Jean-Jacques Bixiou", "label": "Jean-Jacques Bixiou", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": " #1a1a40", "id": "GAUDISSART II", "label": "GAUDISSART II", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#9b8579", "id": "THE PURSE", "label": "THE PURSE", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#5a7684", "id": "Madame Florine Nathan", "label": "Madame Florine Nathan", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Raoul Nathan", "label": "Raoul Nathan", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": "#5a7684", "id": "\u00c9mile Blondet", "label": "\u00c9mile Blondet", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": "#5a7684", "id": "Henri de Marsay", "label": "Henri de Marsay", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": " #1a1a40", "id": "THE DUCHESSE OF LANGEAIS", "label": "THE DUCHESSE OF LANGEAIS", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 40, "type": "novel"}, {"color": " #1a1a40", "id": "THE GIRL WITH THE GOLDEN EYES", "label": "THE GIRL WITH THE GOLDEN EYES", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 30, "type": "novel"}, {"color": " #1a1a40", "id": "THE THIRTEEN", "label": "THE THIRTEEN", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#e3b564", "id": "THE LILY OF THE VALLEY", "label": "THE LILY OF THE VALLEY", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 40, "type": "novel"}, {"color": "#5a7684", "id": "Lady Arabella Dudley", "label": "Lady Arabella Dudley", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Lord Dudley", "label": "Lord Dudley", "scene": NaN, "shape": "dot", "size": 15, "type": "character"}, {"color": "#5a7684", "id": "Mademoiselle des Touches", "label": "Mademoiselle des Touches", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Francois-Claude-Marie Godeschal", "label": "Francois-Claude-Marie Godeschal", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#9b8579", "id": "COLONEL CHABERT", "label": "COLONEL CHABERT", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Charles Claparon", "label": "Charles Claparon", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Joseph Bridau", "label": "Joseph Bridau", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#9b8579", "id": "PIERRE GRASSOU", "label": "PIERRE GRASSOU", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#5a7684", "id": "Baron de Nucingen", "label": "Baron de Nucingen", "scene": NaN, "shape": "dot", "size": 40, "type": "character"}, {"color": " #1a1a40", "id": "SARRASINE", "label": "SARRASINE", "scene": "SCENES DE LA VIE PARISIENNE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Martial de La Roche-Hugon", "label": "Martial de La Roche-Hugon", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#9b8579", "id": "DOMESTIC PEACE", "label": "DOMESTIC PEACE", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Comte de Granville", "label": "Comte de Granville", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Jacques Collin", "label": "Jacques Collin", "scene": NaN, "shape": "dot", "size": 50, "type": "character"}, {"color": "#5a7684", "id": "Baron de Canalis", "label": "Baron de Canalis", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#e3b564", "id": "TWO POETS", "label": "TWO POETS", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 30, "type": "novel"}, {"color": "#5a7684", "id": "Comte F\u00e9lix de Vandenesse", "label": "Comte F\u00e9lix de Vandenesse", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Duchesse de Maufrigneuse", "label": "Duchesse de Maufrigneuse", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#9b8579", "id": "MADAME FIRMIANI", "label": "MADAME FIRMIANI", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Desplein", "label": "Desplein", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Duc de Navarreins", "label": "Duc de Navarreins", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#e3b564", "id": "AN OLD MAID", "label": "AN OLD MAID", "scene": "SCENES DE LA VIE PROVINCE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "General de Montriveau", "label": "General de Montriveau", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Comtesse de Serizy", "label": "Comtesse de Serizy", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Marquis de Ronquerolles", "label": "Marquis de Ronquerolles", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Duc de Grandlieu", "label": "Duc de Grandlieu", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Baronne Delphine de Nucingen", "label": "Baronne Delphine de Nucingen", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Stidmann", "label": "Stidmann", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Virginie Blondet", "label": "Virginie Blondet", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Leon de Lora", "label": "Leon de Lora", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Lucien de Rubempr\u00e9", "label": "Lucien de Rubempr\u00e9", "scene": NaN, "shape": "dot", "size": 100, "type": "character"}, {"color": "#5a7684", "id": "F\u00e9licien Vernou", "label": "F\u00e9licien Vernou", "scene": NaN, "shape": "dot", "size": 20, "type": "character"}, {"color": "#5a7684", "id": "Marechal de Montcornet", "label": "Marechal de Montcornet", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Claude Vignon", "label": "Claude Vignon", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Hippolyte Schinner", "label": "Hippolyte Schinner", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Madame Josephine du Ronceret", "label": "Madame Josephine du Ronceret", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Comte de Serizy", "label": "Comte de Serizy", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#5a7684", "id": "Felix Gaudissart", "label": "Felix Gaudissart", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Baronne Marie-Louise du Ch\u00e2telet", "label": "Baronne Marie-Louise du Ch\u00e2telet", "scene": NaN, "shape": "dot", "size": 30, "type": "character"}, {"color": "#5a7684", "id": "Duc de Lenoncourt", "label": "Duc de Lenoncourt", "scene": NaN, "shape": "dot", "size": 15, "type": "character"}, {"color": "#5a7684", "id": "Madame Roguin", "label": "Madame Roguin", "scene": NaN, "shape": "dot", "size": 15, "type": "character"}, {"color": "#9b8579", "id": "VENDETTA", "label": "VENDETTA", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#9b8579", "id": "AT THE SIGN OF THE CAT AND RACKET", "label": "AT THE SIGN OF THE CAT AND RACKET", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}, {"color": "#5a7684", "id": "Vicomtesse de Beaus\u00e9ant", "label": "Vicomtesse de Beaus\u00e9ant", "scene": NaN, "shape": "dot", "size": 25, "type": "character"}, {"color": "#9b8579", "id": "THE DESERTED WOMAN", "label": "THE DESERTED WOMAN", "scene": "SCENES DE LA VIE PRIVEE", "shape": "square", "size": 20, "type": "novel"}]);
+                 edges = new vis.DataSet([{"from": "Andoche Finot", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Andoche Finot", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Andoche Finot", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Andoche Finot", "to": "URSULA", "value": 1}, {"from": "Andoche Finot", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Andoche Finot", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Andoche Finot", "to": "BUREAUCRACY", "value": 2}, {"from": "Andoche Finot", "to": "THE ILLUSTRIOUS GAUDISSART", "value": 1}, {"from": "Andoche Finot", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Andoche Finot", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 4}, {"from": "Andoche Finot", "to": "THE FIRM OF NUCINGEN", "value": 3}, {"from": "Andoche Finot", "to": "BEATRIX", "value": 2}, {"from": "Andoche Finot", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 3}, {"from": "Andoche Finot", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Andoche Finot", "to": "A START IN LIFE", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "URSULA", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "BUREAUCRACY", "value": 4}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "EVE AND DAVID", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "EUGENIE GRANDET", "value": 1}, {"from": "Comte Cl\u00e9ment des Lupeaulx", "to": "SONS OF THE SOIL", "value": 2}, {"from": "Comte Maxime de Trailles", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "THE DEPUTY OF ARCIS", "value": 4}, {"from": "Comte Maxime de Trailles", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Comte Maxime de Trailles", "to": "URSULA", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "GOBSECK", "value": 2}, {"from": "Comte Maxime de Trailles", "to": "BUREAUCRACY", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "Comte Maxime de Trailles", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "COUSIN BETTY", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "FATHER GORIOT", "value": 3}, {"from": "Comte Maxime de Trailles", "to": "BEATRIX", "value": 4}, {"from": "Comte Maxime de Trailles", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Comte Maxime de Trailles", "to": "A MAN OF BUSINESS", "value": 3}, {"from": "Comte Maxime de Trailles", "to": "PAZ", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "LETTERS OF TWO BRIDES", "value": 2}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "BUREAUCRACY", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "BEATRIX", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "ALBERT SAVARUS", "value": 1}, {"from": "Duc de Rh\u00e9tor\u00e9", "to": "MODESTE MIGNON", "value": 2}, {"from": "Etienne Lousteau", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Etienne Lousteau", "to": "THE LESSER BOURGEOISIE", "value": 2}, {"from": "Etienne Lousteau", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Etienne Lousteau", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Etienne Lousteau", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Etienne Lousteau", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Etienne Lousteau", "to": "THE TWO BROTHERS", "value": 3}, {"from": "Etienne Lousteau", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 4}, {"from": "Etienne Lousteau", "to": "COUSIN BETTY", "value": 2}, {"from": "Etienne Lousteau", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Etienne Lousteau", "to": "EVE AND DAVID", "value": 2}, {"from": "Etienne Lousteau", "to": "BEATRIX", "value": 2}, {"from": "Etienne Lousteau", "to": "THE MUSE OF THE DEPARTMENT", "value": 4}, {"from": "Etienne Lousteau", "to": "A MAN OF BUSINESS", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE BALL AT SCEAUX", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE DEPUTY OF ARCIS", "value": 4}, {"from": "Eug\u00e8ne de Rastignac", "to": "A DAUGHTER OF EVE", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "MELMOTH RECONCILED", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "URSULA", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE COMMISSION IN LUNACY", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE MAGIC SKIN", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "COUSIN BETTY", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE VILLAGE RECTOR", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE FIRM OF NUCINGEN", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "FATHER GORIOT", "value": 5}, {"from": "Eug\u00e8ne de Rastignac", "to": "EVE AND DAVID", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "BEATRIX", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Eug\u00e8ne de Rastignac", "to": "STUDY OF A WOMAN", "value": 3}, {"from": "Eug\u00e8ne de Rastignac", "to": "THE COLLECTION OF ANTIQUITIES", "value": 2}, {"from": "Eug\u00e8ne de Rastignac", "to": "PAZ", "value": 1}, {"from": "Ferdinand du Tillet", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE BROTHERHOOD OF CONSOLATION", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Ferdinand du Tillet", "to": "A DAUGHTER OF EVE", "value": 3}, {"from": "Ferdinand du Tillet", "to": "MELMOTH RECONCILED", "value": 1}, {"from": "Ferdinand du Tillet", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Ferdinand du Tillet", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Ferdinand du Tillet", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Ferdinand du Tillet", "to": "BUREAUCRACY", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Ferdinand du Tillet", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Ferdinand du Tillet", "to": "COUSIN BETTY", "value": 2}, {"from": "Ferdinand du Tillet", "to": "THE FIRM OF NUCINGEN", "value": 3}, {"from": "Ferdinand du Tillet", "to": "PIERRETTE", "value": 1}, {"from": "Ferdinand du Tillet", "to": "A WOMAN OF THIRTY", "value": 1}, {"from": "Ferdinand du Tillet", "to": "BEATRIX", "value": 1}, {"from": "Ferdinand du Tillet", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 4}, {"from": "Ferdinand du Tillet", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Ferdinand du Tillet", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Ferdinand du Tillet", "to": "A MAN OF BUSINESS", "value": 1}, {"from": "Horace Bianchon", "to": "A PRINCE OF BOHEMIA", "value": 2}, {"from": "Horace Bianchon", "to": "THE LESSER BOURGEOISIE", "value": 2}, {"from": "Horace Bianchon", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Horace Bianchon", "to": "THE BROTHERHOOD OF CONSOLATION", "value": 1}, {"from": "Horace Bianchon", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Horace Bianchon", "to": "HONORINE", "value": 1}, {"from": "Horace Bianchon", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Horace Bianchon", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Horace Bianchon", "to": "COUSIN PONS", "value": 1}, {"from": "Horace Bianchon", "to": "BUREAUCRACY", "value": 1}, {"from": "Horace Bianchon", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Horace Bianchon", "to": "THE ATHEISTS MASS", "value": 3}, {"from": "Horace Bianchon", "to": "THE COMMISSION IN LUNACY", "value": 3}, {"from": "Horace Bianchon", "to": "THE MAGIC SKIN", "value": 2}, {"from": "Horace Bianchon", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Horace Bianchon", "to": "COUSIN BETTY", "value": 2}, {"from": "Horace Bianchon", "to": "THE VILLAGE RECTOR", "value": 2}, {"from": "Horace Bianchon", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Horace Bianchon", "to": "PIERRETTE", "value": 2}, {"from": "Horace Bianchon", "to": "FATHER GORIOT", "value": 3}, {"from": "Horace Bianchon", "to": "A SECOND HOME", "value": 2}, {"from": "Horace Bianchon", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 1}, {"from": "Horace Bianchon", "to": "THE MUSE OF THE DEPARTMENT", "value": 3}, {"from": "Horace Bianchon", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Horace Bianchon", "to": "PAZ", "value": 1}, {"from": "Jean Francois du Bruel", "to": "A PRINCE OF BOHEMIA", "value": 3}, {"from": "Jean Francois du Bruel", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Jean Francois du Bruel", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Jean Francois du Bruel", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Jean Francois du Bruel", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Jean Francois du Bruel", "to": "BUREAUCRACY", "value": 3}, {"from": "Jean Francois du Bruel", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Jean Francois du Bruel", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Jean Francois du Bruel", "to": "A START IN LIFE", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "UNCONSCIOUS COMEDIANS", "value": 4}, {"from": "Jean-Jacques Bixiou", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Jean-Jacques Bixiou", "to": "THE TWO BROTHERS", "value": 3}, {"from": "Jean-Jacques Bixiou", "to": "COUSIN PONS", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "BUREAUCRACY", "value": 4}, {"from": "Jean-Jacques Bixiou", "to": "GAUDISSART II", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "THE MAGIC SKIN", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "COUSIN BETTY", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "THE FIRM OF NUCINGEN", "value": 3}, {"from": "Jean-Jacques Bixiou", "to": "EVE AND DAVID", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "BEATRIX", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "THE MUSE OF THE DEPARTMENT", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "THE PURSE", "value": 1}, {"from": "Jean-Jacques Bixiou", "to": "A MAN OF BUSINESS", "value": 2}, {"from": "Jean-Jacques Bixiou", "to": "MODESTE MIGNON", "value": 1}, {"from": "Madame Florine Nathan", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "Madame Florine Nathan", "to": "A DAUGHTER OF EVE", "value": 4}, {"from": "Madame Florine Nathan", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Madame Florine Nathan", "to": "URSULA", "value": 1}, {"from": "Madame Florine Nathan", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Madame Florine Nathan", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Madame Florine Nathan", "to": "COUSIN PONS", "value": 1}, {"from": "Madame Florine Nathan", "to": "BUREAUCRACY", "value": 1}, {"from": "Madame Florine Nathan", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 4}, {"from": "Madame Florine Nathan", "to": "COUSIN BETTY", "value": 1}, {"from": "Madame Florine Nathan", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Madame Florine Nathan", "to": "EVE AND DAVID", "value": 2}, {"from": "Madame Florine Nathan", "to": "BEATRIX", "value": 1}, {"from": "Madame Florine Nathan", "to": "THE MUSE OF THE DEPARTMENT", "value": 2}, {"from": "Madame Florine Nathan", "to": "A START IN LIFE", "value": 2}, {"from": "Madame Florine Nathan", "to": "EUGENIE GRANDET", "value": 1}, {"from": "Madame Florine Nathan", "to": "SONS OF THE SOIL", "value": 1}, {"from": "Madame Florine Nathan", "to": "MODESTE MIGNON", "value": 1}, {"from": "Madame Florine Nathan", "to": "PAZ", "value": 1}, {"from": "Raoul Nathan", "to": "A PRINCE OF BOHEMIA", "value": 2}, {"from": "Raoul Nathan", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Raoul Nathan", "to": "THE BROTHERHOOD OF CONSOLATION", "value": 1}, {"from": "Raoul Nathan", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Raoul Nathan", "to": "A DAUGHTER OF EVE", "value": 4}, {"from": "Raoul Nathan", "to": "URSULA", "value": 1}, {"from": "Raoul Nathan", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Raoul Nathan", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Raoul Nathan", "to": "BUREAUCRACY", "value": 1}, {"from": "Raoul Nathan", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "Raoul Nathan", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Raoul Nathan", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 4}, {"from": "Raoul Nathan", "to": "COUSIN BETTY", "value": 1}, {"from": "Raoul Nathan", "to": "EVE AND DAVID", "value": 1}, {"from": "Raoul Nathan", "to": "BEATRIX", "value": 2}, {"from": "Raoul Nathan", "to": "THE MUSE OF THE DEPARTMENT", "value": 2}, {"from": "Raoul Nathan", "to": "A START IN LIFE", "value": 2}, {"from": "Raoul Nathan", "to": "SONS OF THE SOIL", "value": 2}, {"from": "Raoul Nathan", "to": "A MAN OF BUSINESS", "value": 2}, {"from": "Raoul Nathan", "to": "MODESTE MIGNON", "value": 1}, {"from": "\u00c9mile Blondet", "to": "A PRINCE OF BOHEMIA", "value": 1}, {"from": "\u00c9mile Blondet", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "\u00c9mile Blondet", "to": "A DAUGHTER OF EVE", "value": 3}, {"from": "\u00c9mile Blondet", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "\u00c9mile Blondet", "to": "URSULA", "value": 1}, {"from": "\u00c9mile Blondet", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "\u00c9mile Blondet", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "\u00c9mile Blondet", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "\u00c9mile Blondet", "to": "THE FIRM OF NUCINGEN", "value": 3}, {"from": "\u00c9mile Blondet", "to": "EVE AND DAVID", "value": 2}, {"from": "\u00c9mile Blondet", "to": "BEATRIX", "value": 1}, {"from": "\u00c9mile Blondet", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "\u00c9mile Blondet", "to": "ANOTHER STUDY OF WOMAN", "value": 2}, {"from": "\u00c9mile Blondet", "to": "THE COLLECTION OF ANTIQUITIES", "value": 3}, {"from": "\u00c9mile Blondet", "to": "SONS OF THE SOIL", "value": 4}, {"from": "\u00c9mile Blondet", "to": "MODESTE MIGNON", "value": 1}, {"from": "Henri de Marsay", "to": "THE BALL AT SCEAUX", "value": 1}, {"from": "Henri de Marsay", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Henri de Marsay", "to": "THE DUCHESSE OF LANGEAIS", "value": 2}, {"from": "Henri de Marsay", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Henri de Marsay", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Henri de Marsay", "to": "URSULA", "value": 2}, {"from": "Henri de Marsay", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Henri de Marsay", "to": "THE MARRIAGE CONTRACT", "value": 3}, {"from": "Henri de Marsay", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Henri de Marsay", "to": "COUSIN PONS", "value": 1}, {"from": "Henri de Marsay", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "Henri de Marsay", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Henri de Marsay", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Henri de Marsay", "to": "AN HISTORICAL MYSTERY", "value": 2}, {"from": "Henri de Marsay", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Henri de Marsay", "to": "THE GIRL WITH THE GOLDEN EYES", "value": 3}, {"from": "Henri de Marsay", "to": "FATHER GORIOT", "value": 2}, {"from": "Henri de Marsay", "to": "EVE AND DAVID", "value": 1}, {"from": "Henri de Marsay", "to": "THE THIRTEEN", "value": 1}, {"from": "Henri de Marsay", "to": "BEATRIX", "value": 1}, {"from": "Henri de Marsay", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Henri de Marsay", "to": "ANOTHER STUDY OF WOMAN", "value": 3}, {"from": "Henri de Marsay", "to": "THE COLLECTION OF ANTIQUITIES", "value": 3}, {"from": "Henri de Marsay", "to": "SONS OF THE SOIL", "value": 1}, {"from": "Henri de Marsay", "to": "A MAN OF BUSINESS", "value": 1}, {"from": "Henri de Marsay", "to": "MODESTE MIGNON", "value": 1}, {"from": "Henri de Marsay", "to": "THE LILY OF THE VALLEY", "value": 2}, {"from": "Henri de Marsay", "to": "PAZ", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE BALL AT SCEAUX", "value": 1}, {"from": "Lady Arabella Dudley", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Lady Arabella Dudley", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Lady Arabella Dudley", "to": "URSULA", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Lady Arabella Dudley", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Lady Arabella Dudley", "to": "THE LILY OF THE VALLEY", "value": 3}, {"from": "Mademoiselle des Touches", "to": "THE BALL AT SCEAUX", "value": 1}, {"from": "Mademoiselle des Touches", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Mademoiselle des Touches", "to": "HONORINE", "value": 2}, {"from": "Mademoiselle des Touches", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Mademoiselle des Touches", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Mademoiselle des Touches", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Mademoiselle des Touches", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Mademoiselle des Touches", "to": "COUSIN BETTY", "value": 1}, {"from": "Mademoiselle des Touches", "to": "BEATRIX", "value": 4}, {"from": "Mademoiselle des Touches", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Mademoiselle des Touches", "to": "ANOTHER STUDY OF WOMAN", "value": 2}, {"from": "Francois-Claude-Marie Godeschal", "to": "THE LESSER BOURGEOISIE", "value": 2}, {"from": "Francois-Claude-Marie Godeschal", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Francois-Claude-Marie Godeschal", "to": "COUSIN PONS", "value": 2}, {"from": "Francois-Claude-Marie Godeschal", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Francois-Claude-Marie Godeschal", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Francois-Claude-Marie Godeschal", "to": "COLONEL CHABERT", "value": 3}, {"from": "Francois-Claude-Marie Godeschal", "to": "A START IN LIFE", "value": 3}, {"from": "Charles Claparon", "to": "THE LESSER BOURGEOISIE", "value": 3}, {"from": "Charles Claparon", "to": "MELMOTH RECONCILED", "value": 2}, {"from": "Charles Claparon", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Charles Claparon", "to": "THE FIRM OF NUCINGEN", "value": 2}, {"from": "Charles Claparon", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 3}, {"from": "Charles Claparon", "to": "A MAN OF BUSINESS", "value": 2}, {"from": "Joseph Bridau", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Joseph Bridau", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Joseph Bridau", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Joseph Bridau", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Joseph Bridau", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Joseph Bridau", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Joseph Bridau", "to": "BUREAUCRACY", "value": 1}, {"from": "Joseph Bridau", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Joseph Bridau", "to": "COUSIN BETTY", "value": 1}, {"from": "Joseph Bridau", "to": "A START IN LIFE", "value": 2}, {"from": "Joseph Bridau", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Joseph Bridau", "to": "THE PURSE", "value": 1}, {"from": "Joseph Bridau", "to": "PIERRE GRASSOU", "value": 1}, {"from": "Joseph Bridau", "to": "MODESTE MIGNON", "value": 1}, {"from": "Baron de Nucingen", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Baron de Nucingen", "to": "THE BROTHERHOOD OF CONSOLATION", "value": 2}, {"from": "Baron de Nucingen", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Baron de Nucingen", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Baron de Nucingen", "to": "SARRASINE", "value": 1}, {"from": "Baron de Nucingen", "to": "MELMOTH RECONCILED", "value": 2}, {"from": "Baron de Nucingen", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Baron de Nucingen", "to": "SCENES FROM A COURTESANS LIFE", "value": 4}, {"from": "Baron de Nucingen", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Baron de Nucingen", "to": "GOBSECK", "value": 1}, {"from": "Baron de Nucingen", "to": "BUREAUCRACY", "value": 1}, {"from": "Baron de Nucingen", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Baron de Nucingen", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Baron de Nucingen", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Baron de Nucingen", "to": "COUSIN BETTY", "value": 2}, {"from": "Baron de Nucingen", "to": "THE FIRM OF NUCINGEN", "value": 4}, {"from": "Baron de Nucingen", "to": "THE GIRL WITH THE GOLDEN EYES", "value": 1}, {"from": "Baron de Nucingen", "to": "PIERRETTE", "value": 1}, {"from": "Baron de Nucingen", "to": "FATHER GORIOT", "value": 3}, {"from": "Baron de Nucingen", "to": "EVE AND DAVID", "value": 1}, {"from": "Baron de Nucingen", "to": "THE THIRTEEN", "value": 1}, {"from": "Baron de Nucingen", "to": "BEATRIX", "value": 1}, {"from": "Baron de Nucingen", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 3}, {"from": "Baron de Nucingen", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Baron de Nucingen", "to": "ANOTHER STUDY OF WOMAN", "value": 2}, {"from": "Baron de Nucingen", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Baron de Nucingen", "to": "EUGENIE GRANDET", "value": 1}, {"from": "Baron de Nucingen", "to": "SONS OF THE SOIL", "value": 1}, {"from": "Baron de Nucingen", "to": "A MAN OF BUSINESS", "value": 1}, {"from": "Baron de Nucingen", "to": "PAZ", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "DOMESTIC PEACE", "value": 3}, {"from": "Martial de La Roche-Hugon", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "COUSIN BETTY", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "BEATRIX", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Martial de La Roche-Hugon", "to": "SONS OF THE SOIL", "value": 2}, {"from": "Comte de Granville", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Comte de Granville", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Comte de Granville", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Comte de Granville", "to": "HONORINE", "value": 2}, {"from": "Comte de Granville", "to": "SCENES FROM A COURTESANS LIFE", "value": 4}, {"from": "Comte de Granville", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Comte de Granville", "to": "BUREAUCRACY", "value": 1}, {"from": "Comte de Granville", "to": "AN HISTORICAL MYSTERY", "value": 3}, {"from": "Comte de Granville", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Comte de Granville", "to": "A SECOND HOME", "value": 3}, {"from": "Comte de Granville", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Jacques Collin", "to": "THE LESSER BOURGEOISIE", "value": 1}, {"from": "Jacques Collin", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Jacques Collin", "to": "SCENES FROM A COURTESANS LIFE", "value": 5}, {"from": "Jacques Collin", "to": "COUSIN BETTY", "value": 1}, {"from": "Jacques Collin", "to": "FATHER GORIOT", "value": 4}, {"from": "Jacques Collin", "to": "EVE AND DAVID", "value": 1}, {"from": "Baron de Canalis", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Baron de Canalis", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Baron de Canalis", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Baron de Canalis", "to": "HONORINE", "value": 1}, {"from": "Baron de Canalis", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Baron de Canalis", "to": "BUREAUCRACY", "value": 1}, {"from": "Baron de Canalis", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Baron de Canalis", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Baron de Canalis", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Baron de Canalis", "to": "BEATRIX", "value": 2}, {"from": "Baron de Canalis", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Baron de Canalis", "to": "TWO POETS", "value": 1}, {"from": "Baron de Canalis", "to": "A START IN LIFE", "value": 1}, {"from": "Baron de Canalis", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Baron de Canalis", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Baron de Canalis", "to": "ALBERT SAVARUS", "value": 1}, {"from": "Baron de Canalis", "to": "MODESTE MIGNON", "value": 5}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "A DAUGHTER OF EVE", "value": 3}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "THE MARRIAGE CONTRACT", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "A START IN LIFE", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "ANOTHER STUDY OF WOMAN", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "THE COLLECTION OF ANTIQUITIES", "value": 2}, {"from": "Comte F\u00e9lix de Vandenesse", "to": "THE LILY OF THE VALLEY", "value": 2}, {"from": "Duchesse de Maufrigneuse", "to": "LETTERS OF TWO BRIDES", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "MADAME FIRMIANI", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "THE DUCHESSE OF LANGEAIS", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Duchesse de Maufrigneuse", "to": "URSULA", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Duchesse de Maufrigneuse", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "Duchesse de Maufrigneuse", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "A WOMAN OF THIRTY", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "BEATRIX", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Duchesse de Maufrigneuse", "to": "THE COLLECTION OF ANTIQUITIES", "value": 3}, {"from": "Duchesse de Maufrigneuse", "to": "MODESTE MIGNON", "value": 2}, {"from": "Duchesse de Maufrigneuse", "to": "THE LILY OF THE VALLEY", "value": 1}, {"from": "Desplein", "to": "THE BROTHERHOOD OF CONSOLATION", "value": 1}, {"from": "Desplein", "to": "HONORINE", "value": 1}, {"from": "Desplein", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Desplein", "to": "COUSIN PONS", "value": 1}, {"from": "Desplein", "to": "THE ATHEISTS MASS", "value": 3}, {"from": "Desplein", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Desplein", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Desplein", "to": "THE VILLAGE RECTOR", "value": 1}, {"from": "Desplein", "to": "PIERRETTE", "value": 1}, {"from": "Desplein", "to": "THE THIRTEEN", "value": 1}, {"from": "Desplein", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Desplein", "to": "TWO POETS", "value": 1}, {"from": "Desplein", "to": "MODESTE MIGNON", "value": 2}, {"from": "Duc de Navarreins", "to": "THE DUCHESSE OF LANGEAIS", "value": 2}, {"from": "Duc de Navarreins", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Duc de Navarreins", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Duc de Navarreins", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Duc de Navarreins", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Duc de Navarreins", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Duc de Navarreins", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Duc de Navarreins", "to": "THE VILLAGE RECTOR", "value": 2}, {"from": "Duc de Navarreins", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Duc de Navarreins", "to": "COLONEL CHABERT", "value": 1}, {"from": "Duc de Navarreins", "to": "THE MUSE OF THE DEPARTMENT", "value": 2}, {"from": "Duc de Navarreins", "to": "AN OLD MAID", "value": 1}, {"from": "Duc de Navarreins", "to": "THE COLLECTION OF ANTIQUITIES", "value": 2}, {"from": "General de Montriveau", "to": "THE DUCHESSE OF LANGEAIS", "value": 4}, {"from": "General de Montriveau", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "General de Montriveau", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "General de Montriveau", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "General de Montriveau", "to": "FATHER GORIOT", "value": 1}, {"from": "General de Montriveau", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "General de Montriveau", "to": "TWO POETS", "value": 1}, {"from": "General de Montriveau", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "General de Montriveau", "to": "THE LILY OF THE VALLEY", "value": 1}, {"from": "Comtesse de Serizy", "to": "THE DUCHESSE OF LANGEAIS", "value": 2}, {"from": "Comtesse de Serizy", "to": "HONORINE", "value": 1}, {"from": "Comtesse de Serizy", "to": "URSULA", "value": 2}, {"from": "Comtesse de Serizy", "to": "SCENES FROM A COURTESANS LIFE", "value": 4}, {"from": "Comtesse de Serizy", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Comtesse de Serizy", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Comtesse de Serizy", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Comtesse de Serizy", "to": "COUSIN BETTY", "value": 1}, {"from": "Comtesse de Serizy", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Comtesse de Serizy", "to": "FATHER GORIOT", "value": 1}, {"from": "Comtesse de Serizy", "to": "A WOMAN OF THIRTY", "value": 2}, {"from": "Comtesse de Serizy", "to": "THE THIRTEEN", "value": 1}, {"from": "Comtesse de Serizy", "to": "A START IN LIFE", "value": 2}, {"from": "Comtesse de Serizy", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Comtesse de Serizy", "to": "MODESTE MIGNON", "value": 1}, {"from": "Comtesse de Serizy", "to": "PAZ", "value": 2}, {"from": "Marquis de Ronquerolles", "to": "THE DUCHESSE OF LANGEAIS", "value": 2}, {"from": "Marquis de Ronquerolles", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Marquis de Ronquerolles", "to": "URSULA", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "THE GIRL WITH THE GOLDEN EYES", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "FATHER GORIOT", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "A WOMAN OF THIRTY", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "THE THIRTEEN", "value": 2}, {"from": "Marquis de Ronquerolles", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "A START IN LIFE", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Marquis de Ronquerolles", "to": "SONS OF THE SOIL", "value": 2}, {"from": "Marquis de Ronquerolles", "to": "PAZ", "value": 2}, {"from": "Duc de Grandlieu", "to": "THE DUCHESSE OF LANGEAIS", "value": 2}, {"from": "Duc de Grandlieu", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Duc de Grandlieu", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Duc de Grandlieu", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Duc de Grandlieu", "to": "BEATRIX", "value": 2}, {"from": "Duc de Grandlieu", "to": "MODESTE MIGNON", "value": 1}, {"from": "Baronne Delphine de Nucingen", "to": "THE DEPUTY OF ARCIS", "value": 2}, {"from": "Baronne Delphine de Nucingen", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Baronne Delphine de Nucingen", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Baronne Delphine de Nucingen", "to": "BUREAUCRACY", "value": 1}, {"from": "Baronne Delphine de Nucingen", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Baronne Delphine de Nucingen", "to": "THE FIRM OF NUCINGEN", "value": 2}, {"from": "Baronne Delphine de Nucingen", "to": "FATHER GORIOT", "value": 4}, {"from": "Baronne Delphine de Nucingen", "to": "THE THIRTEEN", "value": 1}, {"from": "Baronne Delphine de Nucingen", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Baronne Delphine de Nucingen", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Stidmann", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Stidmann", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Stidmann", "to": "COUSIN PONS", "value": 1}, {"from": "Stidmann", "to": "COUSIN BETTY", "value": 3}, {"from": "Stidmann", "to": "BEATRIX", "value": 1}, {"from": "Stidmann", "to": "MODESTE MIGNON", "value": 1}, {"from": "Virginie Blondet", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Virginie Blondet", "to": "A DAUGHTER OF EVE", "value": 2}, {"from": "Virginie Blondet", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 2}, {"from": "Virginie Blondet", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 2}, {"from": "Virginie Blondet", "to": "ANOTHER STUDY OF WOMAN", "value": 1}, {"from": "Virginie Blondet", "to": "THE COLLECTION OF ANTIQUITIES", "value": 2}, {"from": "Virginie Blondet", "to": "SONS OF THE SOIL", "value": 3}, {"from": "Leon de Lora", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Leon de Lora", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Leon de Lora", "to": "HONORINE", "value": 2}, {"from": "Leon de Lora", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Leon de Lora", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Leon de Lora", "to": "COUSIN BETTY", "value": 2}, {"from": "Leon de Lora", "to": "FATHER GORIOT", "value": 1}, {"from": "Leon de Lora", "to": "BEATRIX", "value": 2}, {"from": "Leon de Lora", "to": "A START IN LIFE", "value": 4}, {"from": "Leon de Lora", "to": "PIERRE GRASSOU", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "URSULA", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "SCENES FROM A COURTESANS LIFE", "value": 5}, {"from": "Lucien de Rubempr\u00e9", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "COUSIN PONS", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "BUREAUCRACY", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 5}, {"from": "Lucien de Rubempr\u00e9", "to": "EVE AND DAVID", "value": 5}, {"from": "Lucien de Rubempr\u00e9", "to": "BEATRIX", "value": 1}, {"from": "Lucien de Rubempr\u00e9", "to": "TWO POETS", "value": 5}, {"from": "Lucien de Rubempr\u00e9", "to": "MODESTE MIGNON", "value": 1}, {"from": "F\u00e9licien Vernou", "to": "THE DEPUTY OF ARCIS", "value": 1}, {"from": "F\u00e9licien Vernou", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "F\u00e9licien Vernou", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "F\u00e9licien Vernou", "to": "THE TWO BROTHERS", "value": 1}, {"from": "F\u00e9licien Vernou", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "F\u00e9licien Vernou", "to": "COUSIN BETTY", "value": 1}, {"from": "Hippolyte Schinner", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Hippolyte Schinner", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Hippolyte Schinner", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Hippolyte Schinner", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Hippolyte Schinner", "to": "BUREAUCRACY", "value": 1}, {"from": "Hippolyte Schinner", "to": "A WOMAN OF THIRTY", "value": 1}, {"from": "Hippolyte Schinner", "to": "A START IN LIFE", "value": 3}, {"from": "Hippolyte Schinner", "to": "THE PURSE", "value": 3}, {"from": "Hippolyte Schinner", "to": "PIERRE GRASSOU", "value": 2}, {"from": "Hippolyte Schinner", "to": "ALBERT SAVARUS", "value": 1}, {"from": "Hippolyte Schinner", "to": "MODESTE MIGNON", "value": 1}, {"from": "Hippolyte Schinner", "to": "PAZ", "value": 1}, {"from": "Lord Dudley", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Lord Dudley", "to": "THE TWO BROTHERS", "value": 1}, {"from": "Lord Dudley", "to": "THE GIRL WITH THE GOLDEN EYES", "value": 2}, {"from": "Lord Dudley", "to": "ANOTHER STUDY OF WOMAN", "value": 2}, {"from": "Lord Dudley", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Lord Dudley", "to": "A MAN OF BUSINESS", "value": 1}, {"from": "Lord Dudley", "to": "THE LILY OF THE VALLEY", "value": 1}, {"from": "Marechal de Montcornet", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Marechal de Montcornet", "to": "DOMESTIC PEACE", "value": 3}, {"from": "Marechal de Montcornet", "to": "COUSIN BETTY", "value": 2}, {"from": "Marechal de Montcornet", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Marechal de Montcornet", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Marechal de Montcornet", "to": "SONS OF THE SOIL", "value": 3}, {"from": "Marechal de Montcornet", "to": "A MAN OF BUSINESS", "value": 1}, {"from": "Claude Vignon", "to": "A DAUGHTER OF EVE", "value": 1}, {"from": "Claude Vignon", "to": "UNCONSCIOUS COMEDIANS", "value": 2}, {"from": "Claude Vignon", "to": "HONORINE", "value": 1}, {"from": "Claude Vignon", "to": "THE MAGIC SKIN", "value": 1}, {"from": "Claude Vignon", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 3}, {"from": "Claude Vignon", "to": "COUSIN BETTY", "value": 3}, {"from": "Claude Vignon", "to": "BEATRIX", "value": 3}, {"from": "Claude Vignon", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Madame Josephine du Ronceret", "to": "UNCONSCIOUS COMEDIANS", "value": 1}, {"from": "Madame Josephine du Ronceret", "to": "COUSIN BETTY", "value": 2}, {"from": "Madame Josephine du Ronceret", "to": "BEATRIX", "value": 3}, {"from": "Madame Josephine du Ronceret", "to": "THE MUSE OF THE DEPARTMENT", "value": 2}, {"from": "Comte de Serizy", "to": "HONORINE", "value": 2}, {"from": "Comte de Serizy", "to": "SCENES FROM A COURTESANS LIFE", "value": 3}, {"from": "Comte de Serizy", "to": "THE MARRIAGE CONTRACT", "value": 1}, {"from": "Comte de Serizy", "to": "THE TWO BROTHERS", "value": 2}, {"from": "Comte de Serizy", "to": "BUREAUCRACY", "value": 1}, {"from": "Comte de Serizy", "to": "THE SECRETS OF THE PRINCESSE DE CADIGNAN", "value": 1}, {"from": "Comte de Serizy", "to": "THE COMMISSION IN LUNACY", "value": 1}, {"from": "Comte de Serizy", "to": "FATHER GORIOT", "value": 1}, {"from": "Comte de Serizy", "to": "A START IN LIFE", "value": 3}, {"from": "Comte de Serizy", "to": "SONS OF THE SOIL", "value": 1}, {"from": "Comte de Serizy", "to": "MODESTE MIGNON", "value": 1}, {"from": "Felix Gaudissart", "to": "HONORINE", "value": 1}, {"from": "Felix Gaudissart", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Felix Gaudissart", "to": "COUSIN PONS", "value": 3}, {"from": "Felix Gaudissart", "to": "THE ILLUSTRIOUS GAUDISSART", "value": 3}, {"from": "Felix Gaudissart", "to": "GAUDISSART II", "value": 2}, {"from": "Felix Gaudissart", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 3}, {"from": "Baronne Marie-Louise du Ch\u00e2telet", "to": "SCENES FROM A COURTESANS LIFE", "value": 2}, {"from": "Baronne Marie-Louise du Ch\u00e2telet", "to": "BUREAUCRACY", "value": 1}, {"from": "Baronne Marie-Louise du Ch\u00e2telet", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 4}, {"from": "Baronne Marie-Louise du Ch\u00e2telet", "to": "EVE AND DAVID", "value": 3}, {"from": "Baronne Marie-Louise du Ch\u00e2telet", "to": "TWO POETS", "value": 4}, {"from": "Duc de Lenoncourt", "to": "SCENES FROM A COURTESANS LIFE", "value": 1}, {"from": "Duc de Lenoncourt", "to": "A DISTINGUISHED PROVINCIAL AT PARIS", "value": 1}, {"from": "Duc de Lenoncourt", "to": "AN HISTORICAL MYSTERY", "value": 1}, {"from": "Duc de Lenoncourt", "to": "BEATRIX", "value": 1}, {"from": "Duc de Lenoncourt", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Duc de Lenoncourt", "to": "AN OLD MAID", "value": 1}, {"from": "Duc de Lenoncourt", "to": "THE COLLECTION OF ANTIQUITIES", "value": 2}, {"from": "Duc de Lenoncourt", "to": "THE LILY OF THE VALLEY", "value": 2}, {"from": "Madame Roguin", "to": "VENDETTA", "value": 1}, {"from": "Madame Roguin", "to": "THE FIRM OF NUCINGEN", "value": 1}, {"from": "Madame Roguin", "to": "AT THE SIGN OF THE CAT AND RACKET", "value": 2}, {"from": "Madame Roguin", "to": "PIERRETTE", "value": 1}, {"from": "Madame Roguin", "to": "A SECOND HOME", "value": 1}, {"from": "Madame Roguin", "to": "RISE AND FALL OF CESAR BIROTTEAU", "value": 2}, {"from": "Madame Roguin", "to": "THE MUSE OF THE DEPARTMENT", "value": 1}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "FATHER GORIOT", "value": 3}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "BEATRIX", "value": 1}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "THE DESERTED WOMAN", "value": 3}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "THE COLLECTION OF ANTIQUITIES", "value": 1}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "ALBERT SAVARUS", "value": 1}, {"from": "Vicomtesse de Beaus\u00e9ant", "to": "THE LILY OF THE VALLEY", "value": 1}]);
+
+                
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+                  for (let nodeId in allNodes) {
+                    allNodes[nodeId].size += 50; // or allNodes[nodeId].size += 5 if using size
+                    }
+                    nodes.update(Object.values(allNodes));
+                    
+                    
+                 var options = {
+                    nodes: {
+                    font: { size: 180, face: "Merriweather", align: "center" },
+                    scaling: { 
+                    label: { min: 150, max: 200 },
+                    min: 100,
+                    max: 400
+                        }
+                    },
+                    edges: {
+                      color: { color: "#dac751", highlight: "#d03e3e", hover: undefined },
+                      width: 2
+                    },
+                    interaction: {
+                      zoomView: true,
+                      hover: true,
+                      navigationButtons: true,
+                      dragNodes: true,
+                      dragView: true,
+                      hideEdgesOnDrag: false
+                    },
+                    physics: {
+                      repulsion: {
+                        nodeDistance: 4000, 
+                        centralGravity: 0,
+                        springLength: 1500,
+                        springConstant: 0.02,
+                        damping: 0.9
+                      },
+                      minVelocity: 0.0,
+                      solver: "repulsion"
+                    }
+                  };
+
+                  
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+                    network.on("click", neighbourhoodHighlight);
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+
+                          // stop nodes from wiggling
+                            network.setOptions({ physics: false });
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+
+
+           
+</html>
