@@ -1,0 +1,611 @@
+Character,Novel,Frequency
+Andoche Finot,A PRINCE OF BOHEMIA,1
+Andoche Finot,THE DEPUTY OF ARCIS,1
+Andoche Finot,A DAUGHTER OF EVE,3
+Andoche Finot,URSULA,2
+Andoche Finot,SCENES FROM A COURTESANS LIFE,22
+Andoche Finot,THE TWO BROTHERS,20
+Andoche Finot,BUREAUCRACY,5
+Andoche Finot,THE ILLUSTRIOUS GAUDISSART,2
+Andoche Finot,THE MAGIC SKIN,4
+Andoche Finot,A DISTINGUISHED PROVINCIAL AT PARIS,180
+Andoche Finot,THE FIRM OF NUCINGEN,51
+Andoche Finot,BEATRIX,10
+Andoche Finot,RISE AND FALL OF CESAR BIROTTEAU,31
+Andoche Finot,THE MUSE OF THE DEPARTMENT,1
+Andoche Finot,A START IN LIFE,4
+Comte Clément des Lupeaulx,A PRINCE OF BOHEMIA,1
+Comte Clément des Lupeaulx,THE LESSER BOURGEOISIE,2
+Comte Clément des Lupeaulx,THE DEPUTY OF ARCIS,1
+Comte Clément des Lupeaulx,URSULA,1
+Comte Clément des Lupeaulx,SCENES FROM A COURTESANS LIFE,18
+Comte Clément des Lupeaulx,THE TWO BROTHERS,2
+Comte Clément des Lupeaulx,BUREAUCRACY,224
+Comte Clément des Lupeaulx,A DISTINGUISHED PROVINCIAL AT PARIS,37
+Comte Clément des Lupeaulx,THE FIRM OF NUCINGEN,3
+Comte Clément des Lupeaulx,EVE AND DAVID,1
+Comte Clément des Lupeaulx,RISE AND FALL OF CESAR BIROTTEAU,1
+Comte Clément des Lupeaulx,THE MUSE OF THE DEPARTMENT,3
+Comte Clément des Lupeaulx,THE COLLECTION OF ANTIQUITIES,3
+Comte Clément des Lupeaulx,EUGENIE GRANDET,1
+Comte Clément des Lupeaulx,SONS OF THE SOIL,6
+Comte Maxime de Trailles,A PRINCE OF BOHEMIA,1
+Comte Maxime de Trailles,THE DEPUTY OF ARCIS,151
+Comte Maxime de Trailles,UNCONSCIOUS COMEDIANS,12
+Comte Maxime de Trailles,URSULA,3
+Comte Maxime de Trailles,SCENES FROM A COURTESANS LIFE,2
+Comte Maxime de Trailles,THE MARRIAGE CONTRACT,2
+Comte Maxime de Trailles,THE TWO BROTHERS,2
+Comte Maxime de Trailles,GOBSECK,15
+Comte Maxime de Trailles,BUREAUCRACY,1
+Comte Maxime de Trailles,THE SECRETS OF THE PRINCESSE DE CADIGNAN,11
+Comte Maxime de Trailles,THE COMMISSION IN LUNACY,2
+Comte Maxime de Trailles,A DISTINGUISHED PROVINCIAL AT PARIS,2
+Comte Maxime de Trailles,COUSIN BETTY,2
+Comte Maxime de Trailles,FATHER GORIOT,54
+Comte Maxime de Trailles,BEATRIX,103
+Comte Maxime de Trailles,RISE AND FALL OF CESAR BIROTTEAU,2
+Comte Maxime de Trailles,THE COLLECTION OF ANTIQUITIES,1
+Comte Maxime de Trailles,A MAN OF BUSINESS,43
+Comte Maxime de Trailles,PAZ,1
+Duc de Rhétoré,A PRINCE OF BOHEMIA,2
+Duc de Rhétoré,LETTERS OF TWO BRIDES,4
+Duc de Rhétoré,THE DEPUTY OF ARCIS,17
+Duc de Rhétoré,SCENES FROM A COURTESANS LIFE,4
+Duc de Rhétoré,THE TWO BROTHERS,2
+Duc de Rhétoré,BUREAUCRACY,1
+Duc de Rhétoré,A DISTINGUISHED PROVINCIAL AT PARIS,7
+Duc de Rhétoré,BEATRIX,1
+Duc de Rhétoré,ALBERT SAVARUS,2
+Duc de Rhétoré,MODESTE MIGNON,5
+Etienne Lousteau,A PRINCE OF BOHEMIA,2
+Etienne Lousteau,THE LESSER BOURGEOISIE,13
+Etienne Lousteau,THE DEPUTY OF ARCIS,3
+Etienne Lousteau,A DAUGHTER OF EVE,6
+Etienne Lousteau,UNCONSCIOUS COMEDIANS,2
+Etienne Lousteau,SCENES FROM A COURTESANS LIFE,7
+Etienne Lousteau,THE TWO BROTHERS,34
+Etienne Lousteau,A DISTINGUISHED PROVINCIAL AT PARIS,268
+Etienne Lousteau,COUSIN BETTY,9
+Etienne Lousteau,THE FIRM OF NUCINGEN,1
+Etienne Lousteau,EVE AND DAVID,7
+Etienne Lousteau,BEATRIX,7
+Etienne Lousteau,THE MUSE OF THE DEPARTMENT,296
+Etienne Lousteau,A MAN OF BUSINESS,5
+Eugène de Rastignac,A PRINCE OF BOHEMIA,1
+Eugène de Rastignac,THE BALL AT SCEAUX,1
+Eugène de Rastignac,THE LESSER BOURGEOISIE,2
+Eugène de Rastignac,THE DEPUTY OF ARCIS,110
+Eugène de Rastignac,A DAUGHTER OF EVE,27
+Eugène de Rastignac,MELMOTH RECONCILED,1
+Eugène de Rastignac,UNCONSCIOUS COMEDIANS,3
+Eugène de Rastignac,URSULA,8
+Eugène de Rastignac,SCENES FROM A COURTESANS LIFE,68
+Eugène de Rastignac,THE MARRIAGE CONTRACT,1
+Eugène de Rastignac,THE TWO BROTHERS,3
+Eugène de Rastignac,THE SECRETS OF THE PRINCESSE DE CADIGNAN,25
+Eugène de Rastignac,THE COMMISSION IN LUNACY,25
+Eugène de Rastignac,THE MAGIC SKIN,45
+Eugène de Rastignac,A DISTINGUISHED PROVINCIAL AT PARIS,32
+Eugène de Rastignac,COUSIN BETTY,6
+Eugène de Rastignac,THE VILLAGE RECTOR,13
+Eugène de Rastignac,AN HISTORICAL MYSTERY,3
+Eugène de Rastignac,THE FIRM OF NUCINGEN,67
+Eugène de Rastignac,FATHER GORIOT,641
+Eugène de Rastignac,EVE AND DAVID,8
+Eugène de Rastignac,BEATRIX,5
+Eugène de Rastignac,ANOTHER STUDY OF WOMAN,2
+Eugène de Rastignac,STUDY OF A WOMAN,35
+Eugène de Rastignac,THE COLLECTION OF ANTIQUITIES,20
+Eugène de Rastignac,PAZ,1
+Ferdinand du Tillet,A PRINCE OF BOHEMIA,1
+Ferdinand du Tillet,THE LESSER BOURGEOISIE,2
+Ferdinand du Tillet,THE BROTHERHOOD OF CONSOLATION,2
+Ferdinand du Tillet,THE DEPUTY OF ARCIS,4
+Ferdinand du Tillet,A DAUGHTER OF EVE,64
+Ferdinand du Tillet,MELMOTH RECONCILED,1
+Ferdinand du Tillet,UNCONSCIOUS COMEDIANS,9
+Ferdinand du Tillet,SCENES FROM A COURTESANS LIFE,36
+Ferdinand du Tillet,THE TWO BROTHERS,7
+Ferdinand du Tillet,BUREAUCRACY,1
+Ferdinand du Tillet,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Ferdinand du Tillet,THE COMMISSION IN LUNACY,1
+Ferdinand du Tillet,A DISTINGUISHED PROVINCIAL AT PARIS,3
+Ferdinand du Tillet,COUSIN BETTY,19
+Ferdinand du Tillet,THE FIRM OF NUCINGEN,37
+Ferdinand du Tillet,PIERRETTE,4
+Ferdinand du Tillet,A WOMAN OF THIRTY,1
+Ferdinand du Tillet,BEATRIX,2
+Ferdinand du Tillet,RISE AND FALL OF CESAR BIROTTEAU,196
+Ferdinand du Tillet,THE MUSE OF THE DEPARTMENT,2
+Ferdinand du Tillet,THE COLLECTION OF ANTIQUITIES,1
+Ferdinand du Tillet,A MAN OF BUSINESS,1
+Horace Bianchon,A PRINCE OF BOHEMIA,5
+Horace Bianchon,THE LESSER BOURGEOISIE,11
+Horace Bianchon,LETTERS OF TWO BRIDES,1
+Horace Bianchon,THE BROTHERHOOD OF CONSOLATION,1
+Horace Bianchon,THE DEPUTY OF ARCIS,2
+Horace Bianchon,HONORINE,1
+Horace Bianchon,SCENES FROM A COURTESANS LIFE,22
+Horace Bianchon,THE TWO BROTHERS,10
+Horace Bianchon,COUSIN PONS,3
+Horace Bianchon,BUREAUCRACY,2
+Horace Bianchon,THE SECRETS OF THE PRINCESSE DE CADIGNAN,3
+Horace Bianchon,THE ATHEISTS MASS,33
+Horace Bianchon,THE COMMISSION IN LUNACY,50
+Horace Bianchon,THE MAGIC SKIN,11
+Horace Bianchon,A DISTINGUISHED PROVINCIAL AT PARIS,25
+Horace Bianchon,COUSIN BETTY,19
+Horace Bianchon,THE VILLAGE RECTOR,11
+Horace Bianchon,THE FIRM OF NUCINGEN,1
+Horace Bianchon,PIERRETTE,9
+Horace Bianchon,FATHER GORIOT,85
+Horace Bianchon,A SECOND HOME,8
+Horace Bianchon,RISE AND FALL OF CESAR BIROTTEAU,2
+Horace Bianchon,THE MUSE OF THE DEPARTMENT,82
+Horace Bianchon,ANOTHER STUDY OF WOMAN,2
+Horace Bianchon,PAZ,3
+Jean Francois du Bruel,A PRINCE OF BOHEMIA,63
+Jean Francois du Bruel,A DAUGHTER OF EVE,1
+Jean Francois du Bruel,UNCONSCIOUS COMEDIANS,1
+Jean Francois du Bruel,SCENES FROM A COURTESANS LIFE,1
+Jean Francois du Bruel,THE TWO BROTHERS,10
+Jean Francois du Bruel,BUREAUCRACY,73
+Jean Francois du Bruel,THE MAGIC SKIN,4
+Jean Francois du Bruel,A DISTINGUISHED PROVINCIAL AT PARIS,27
+Jean Francois du Bruel,A START IN LIFE,3
+Jean-Jacques Bixiou,A PRINCE OF BOHEMIA,2
+Jean-Jacques Bixiou,THE DEPUTY OF ARCIS,24
+Jean-Jacques Bixiou,A DAUGHTER OF EVE,3
+Jean-Jacques Bixiou,UNCONSCIOUS COMEDIANS,132
+Jean-Jacques Bixiou,SCENES FROM A COURTESANS LIFE,32
+Jean-Jacques Bixiou,THE TWO BROTHERS,59
+Jean-Jacques Bixiou,COUSIN PONS,2
+Jean-Jacques Bixiou,BUREAUCRACY,194
+Jean-Jacques Bixiou,GAUDISSART II,6
+Jean-Jacques Bixiou,THE MAGIC SKIN,8
+Jean-Jacques Bixiou,A DISTINGUISHED PROVINCIAL AT PARIS,8
+Jean-Jacques Bixiou,COUSIN BETTY,22
+Jean-Jacques Bixiou,THE FIRM OF NUCINGEN,71
+Jean-Jacques Bixiou,EVE AND DAVID,4
+Jean-Jacques Bixiou,BEATRIX,7
+Jean-Jacques Bixiou,THE MUSE OF THE DEPARTMENT,20
+Jean-Jacques Bixiou,THE PURSE,1
+Jean-Jacques Bixiou,A MAN OF BUSINESS,11
+Jean-Jacques Bixiou,MODESTE MIGNON,1
+Madame Florine Nathan,A PRINCE OF BOHEMIA,1
+Madame Florine Nathan,A DAUGHTER OF EVE,111
+Madame Florine Nathan,UNCONSCIOUS COMEDIANS,3
+Madame Florine Nathan,URSULA,3
+Madame Florine Nathan,SCENES FROM A COURTESANS LIFE,16
+Madame Florine Nathan,THE TWO BROTHERS,5
+Madame Florine Nathan,COUSIN PONS,1
+Madame Florine Nathan,BUREAUCRACY,1
+Madame Florine Nathan,A DISTINGUISHED PROVINCIAL AT PARIS,137
+Madame Florine Nathan,COUSIN BETTY,1
+Madame Florine Nathan,THE FIRM OF NUCINGEN,2
+Madame Florine Nathan,EVE AND DAVID,6
+Madame Florine Nathan,BEATRIX,2
+Madame Florine Nathan,THE MUSE OF THE DEPARTMENT,6
+Madame Florine Nathan,A START IN LIFE,5
+Madame Florine Nathan,EUGENIE GRANDET,1
+Madame Florine Nathan,SONS OF THE SOIL,3
+Madame Florine Nathan,MODESTE MIGNON,2
+Madame Florine Nathan,PAZ,1
+Raoul Nathan,A PRINCE OF BOHEMIA,12
+Raoul Nathan,LETTERS OF TWO BRIDES,2
+Raoul Nathan,THE BROTHERHOOD OF CONSOLATION,1
+Raoul Nathan,THE DEPUTY OF ARCIS,1
+Raoul Nathan,A DAUGHTER OF EVE,290
+Raoul Nathan,URSULA,1
+Raoul Nathan,SCENES FROM A COURTESANS LIFE,5
+Raoul Nathan,THE TWO BROTHERS,5
+Raoul Nathan,BUREAUCRACY,1
+Raoul Nathan,THE SECRETS OF THE PRINCESSE DE CADIGNAN,5
+Raoul Nathan,THE MAGIC SKIN,4
+Raoul Nathan,A DISTINGUISHED PROVINCIAL AT PARIS,122
+Raoul Nathan,COUSIN BETTY,1
+Raoul Nathan,EVE AND DAVID,4
+Raoul Nathan,BEATRIX,19
+Raoul Nathan,THE MUSE OF THE DEPARTMENT,12
+Raoul Nathan,A START IN LIFE,5
+Raoul Nathan,SONS OF THE SOIL,7
+Raoul Nathan,A MAN OF BUSINESS,5
+Raoul Nathan,MODESTE MIGNON,2
+Émile Blondet,A PRINCE OF BOHEMIA,2
+Émile Blondet,THE DEPUTY OF ARCIS,17
+Émile Blondet,A DAUGHTER OF EVE,37
+Émile Blondet,UNCONSCIOUS COMEDIANS,1
+Émile Blondet,URSULA,2
+Émile Blondet,SCENES FROM A COURTESANS LIFE,37
+Émile Blondet,THE SECRETS OF THE PRINCESSE DE CADIGNAN,18
+Émile Blondet,A DISTINGUISHED PROVINCIAL AT PARIS,95
+Émile Blondet,THE FIRM OF NUCINGEN,71
+Émile Blondet,EVE AND DAVID,5
+Émile Blondet,BEATRIX,4
+Émile Blondet,THE MUSE OF THE DEPARTMENT,1
+Émile Blondet,ANOTHER STUDY OF WOMAN,14
+Émile Blondet,THE COLLECTION OF ANTIQUITIES,76
+Émile Blondet,SONS OF THE SOIL,139
+Émile Blondet,MODESTE MIGNON,1
+Henri de Marsay,THE BALL AT SCEAUX,1
+Henri de Marsay,LETTERS OF TWO BRIDES,4
+Henri de Marsay,THE DUCHESSE OF LANGEAIS,5
+Henri de Marsay,THE DEPUTY OF ARCIS,8
+Henri de Marsay,A DAUGHTER OF EVE,11
+Henri de Marsay,URSULA,11
+Henri de Marsay,SCENES FROM A COURTESANS LIFE,18
+Henri de Marsay,THE MARRIAGE CONTRACT,33
+Henri de Marsay,THE TWO BROTHERS,6
+Henri de Marsay,COUSIN PONS,1
+Henri de Marsay,THE SECRETS OF THE PRINCESSE DE CADIGNAN,14
+Henri de Marsay,THE COMMISSION IN LUNACY,1
+Henri de Marsay,A DISTINGUISHED PROVINCIAL AT PARIS,35
+Henri de Marsay,AN HISTORICAL MYSTERY,19
+Henri de Marsay,THE FIRM OF NUCINGEN,4
+Henri de Marsay,THE GIRL WITH THE GOLDEN EYES,89
+Henri de Marsay,FATHER GORIOT,14
+Henri de Marsay,EVE AND DAVID,2
+Henri de Marsay,THE THIRTEEN,2
+Henri de Marsay,BEATRIX,3
+Henri de Marsay,RISE AND FALL OF CESAR BIROTTEAU,7
+Henri de Marsay,ANOTHER STUDY OF WOMAN,30
+Henri de Marsay,THE COLLECTION OF ANTIQUITIES,36
+Henri de Marsay,SONS OF THE SOIL,1
+Henri de Marsay,A MAN OF BUSINESS,1
+Henri de Marsay,MODESTE MIGNON,3
+Henri de Marsay,THE LILY OF THE VALLEY,5
+Henri de Marsay,PAZ,1
+Lady Arabella Dudley,THE BALL AT SCEAUX,3
+Lady Arabella Dudley,LETTERS OF TWO BRIDES,1
+Lady Arabella Dudley,A DAUGHTER OF EVE,21
+Lady Arabella Dudley,URSULA,1
+Lady Arabella Dudley,THE COMMISSION IN LUNACY,1
+Lady Arabella Dudley,THE MAGIC SKIN,1
+Lady Arabella Dudley,THE MUSE OF THE DEPARTMENT,1
+Lady Arabella Dudley,ANOTHER STUDY OF WOMAN,1
+Lady Arabella Dudley,THE LILY OF THE VALLEY,81
+Lord Dudley,THE BALL AT SCEAUX,1
+Lord Dudley,A DAUGHTER OF EVE,2
+Lord Dudley,THE TWO BROTHERS,1
+Lord Dudley,THE GIRL WITH THE GOLDEN EYES,10
+Lord Dudley,ANOTHER STUDY OF WOMAN,7
+Lord Dudley,THE COLLECTION OF ANTIQUITIES,1
+Lord Dudley,A MAN OF BUSINESS,1
+Lord Dudley,THE LILY OF THE VALLEY,2
+Mademoiselle des Touches,THE BALL AT SCEAUX,1
+Mademoiselle des Touches,A DAUGHTER OF EVE,3
+Mademoiselle des Touches,HONORINE,14
+Mademoiselle des Touches,SCENES FROM A COURTESANS LIFE,4
+Mademoiselle des Touches,THE TWO BROTHERS,1
+Mademoiselle des Touches,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Mademoiselle des Touches,A DISTINGUISHED PROVINCIAL AT PARIS,21
+Mademoiselle des Touches,COUSIN BETTY,1
+Mademoiselle des Touches,BEATRIX,150
+Mademoiselle des Touches,THE MUSE OF THE DEPARTMENT,2
+Mademoiselle des Touches,ANOTHER STUDY OF WOMAN,7
+Francois-Claude-Marie Godeschal,THE LESSER BOURGEOISIE,23
+Francois-Claude-Marie Godeschal,THE TWO BROTHERS,3
+Francois-Claude-Marie Godeschal,COUSIN PONS,5
+Francois-Claude-Marie Godeschal,THE COMMISSION IN LUNACY,1
+Francois-Claude-Marie Godeschal,THE FIRM OF NUCINGEN,1
+Francois-Claude-Marie Godeschal,COLONEL CHABERT,31
+Francois-Claude-Marie Godeschal,A START IN LIFE,61
+Charles Claparon,THE LESSER BOURGEOISIE,43
+Charles Claparon,MELMOTH RECONCILED,16
+Charles Claparon,THE TWO BROTHERS,11
+Charles Claparon,THE FIRM OF NUCINGEN,12
+Charles Claparon,RISE AND FALL OF CESAR BIROTTEAU,97
+Charles Claparon,A MAN OF BUSINESS,9
+Joseph Bridau,THE LESSER BOURGEOISIE,1
+Joseph Bridau,LETTERS OF TWO BRIDES,1
+Joseph Bridau,THE DEPUTY OF ARCIS,10
+Joseph Bridau,A DAUGHTER OF EVE,1
+Joseph Bridau,THE TWO BROTHERS,12
+Joseph Bridau,BUREAUCRACY,1
+Joseph Bridau,A DISTINGUISHED PROVINCIAL AT PARIS,10
+Joseph Bridau,COUSIN BETTY,2
+Joseph Bridau,A START IN LIFE,14
+Joseph Bridau,ANOTHER STUDY OF WOMAN,3
+Joseph Bridau,THE PURSE,1
+Joseph Bridau,PIERRE GRASSOU,3
+Baron de Nucingen,THE LESSER BOURGEOISIE,2
+Baron de Nucingen,THE BROTHERHOOD OF CONSOLATION,7
+Baron de Nucingen,THE DEPUTY OF ARCIS,10
+Baron de Nucingen,A DAUGHTER OF EVE,21
+Baron de Nucingen,SARRASINE,1
+Baron de Nucingen,MELMOTH RECONCILED,10
+Baron de Nucingen,UNCONSCIOUS COMEDIANS,5
+Baron de Nucingen,SCENES FROM A COURTESANS LIFE,183
+Baron de Nucingen,THE TWO BROTHERS,6
+Baron de Nucingen,GOBSECK,1
+Baron de Nucingen,BUREAUCRACY,5
+Baron de Nucingen,THE SECRETS OF THE PRINCESSE DE CADIGNAN,2
+Baron de Nucingen,THE COMMISSION IN LUNACY,3
+Baron de Nucingen,A DISTINGUISHED PROVINCIAL AT PARIS,1
+Baron de Nucingen,COUSIN BETTY,12
+Baron de Nucingen,THE FIRM OF NUCINGEN,109
+Baron de Nucingen,THE GIRL WITH THE GOLDEN EYES,2
+Baron de Nucingen,PIERRETTE,2
+Baron de Nucingen,FATHER GORIOT,36
+Baron de Nucingen,EVE AND DAVID,1
+Baron de Nucingen,THE THIRTEEN,2
+Baron de Nucingen,BEATRIX,1
+Baron de Nucingen,RISE AND FALL OF CESAR BIROTTEAU,30
+Baron de Nucingen,THE MUSE OF THE DEPARTMENT,3
+Baron de Nucingen,ANOTHER STUDY OF WOMAN,7
+Baron de Nucingen,STUDY OF A WOMAN,1
+Baron de Nucingen,THE COLLECTION OF ANTIQUITIES,2
+Baron de Nucingen,EUGENIE GRANDET,2
+Baron de Nucingen,SONS OF THE SOIL,3
+Baron de Nucingen,A MAN OF BUSINESS,3
+Baron de Nucingen,PAZ,3
+Martial de La Roche-Hugon,THE LESSER BOURGEOISIE,2
+Martial de La Roche-Hugon,THE DEPUTY OF ARCIS,5
+Martial de La Roche-Hugon,A DAUGHTER OF EVE,2
+Martial de La Roche-Hugon,DOMESTIC PEACE,63
+Martial de La Roche-Hugon,THE MARRIAGE CONTRACT,3
+Martial de La Roche-Hugon,COUSIN BETTY,2
+Martial de La Roche-Hugon,BEATRIX,1
+Martial de La Roche-Hugon,THE COLLECTION OF ANTIQUITIES,1
+Martial de La Roche-Hugon,SONS OF THE SOIL,5
+Comte de Granville,THE LESSER BOURGEOISIE,1
+Comte de Granville,THE DEPUTY OF ARCIS,1
+Comte de Granville,A DAUGHTER OF EVE,8
+Comte de Granville,HONORINE,14
+Comte de Granville,SCENES FROM A COURTESANS LIFE,131
+Comte de Granville,THE MARRIAGE CONTRACT,2
+Comte de Granville,BUREAUCRACY,1
+Comte de Granville,AN HISTORICAL MYSTERY,35
+Comte de Granville,THE FIRM OF NUCINGEN,1
+Comte de Granville,A SECOND HOME,78
+Comte de Granville,RISE AND FALL OF CESAR BIROTTEAU,7
+Jacques Collin,THE LESSER BOURGEOISIE,3
+Jacques Collin,THE DEPUTY OF ARCIS,19
+Jacques Collin,SCENES FROM A COURTESANS LIFE,691
+Jacques Collin,COUSIN BETTY,1
+Jacques Collin,FATHER GORIOT,218
+Jacques Collin,EVE AND DAVID,3
+Baron de Canalis,LETTERS OF TWO BRIDES,4
+Baron de Canalis,THE DEPUTY OF ARCIS,10
+Baron de Canalis,UNCONSCIOUS COMEDIANS,16
+Baron de Canalis,HONORINE,1
+Baron de Canalis,SCENES FROM A COURTESANS LIFE,1
+Baron de Canalis,BUREAUCRACY,3
+Baron de Canalis,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Baron de Canalis,THE MAGIC SKIN,3
+Baron de Canalis,A DISTINGUISHED PROVINCIAL AT PARIS,19
+Baron de Canalis,BEATRIX,7
+Baron de Canalis,THE MUSE OF THE DEPARTMENT,1
+Baron de Canalis,TWO POETS,2
+Baron de Canalis,A START IN LIFE,4
+Baron de Canalis,ANOTHER STUDY OF WOMAN,1
+Baron de Canalis,THE COLLECTION OF ANTIQUITIES,1
+Baron de Canalis,ALBERT SAVARUS,1
+Baron de Canalis,MODESTE MIGNON,299
+Comte Félix de Vandenesse,LETTERS OF TWO BRIDES,3
+Comte Félix de Vandenesse,A DAUGHTER OF EVE,86
+Comte Félix de Vandenesse,THE MARRIAGE CONTRACT,6
+Comte Félix de Vandenesse,A DISTINGUISHED PROVINCIAL AT PARIS,11
+Comte Félix de Vandenesse,AN HISTORICAL MYSTERY,1
+Comte Félix de Vandenesse,THE FIRM OF NUCINGEN,1
+Comte Félix de Vandenesse,RISE AND FALL OF CESAR BIROTTEAU,10
+Comte Félix de Vandenesse,A START IN LIFE,8
+Comte Félix de Vandenesse,ANOTHER STUDY OF WOMAN,5
+Comte Félix de Vandenesse,THE COLLECTION OF ANTIQUITIES,5
+Comte Félix de Vandenesse,THE LILY OF THE VALLEY,12
+Duchesse de Maufrigneuse,LETTERS OF TWO BRIDES,4
+Duchesse de Maufrigneuse,MADAME FIRMIANI,1
+Duchesse de Maufrigneuse,THE DUCHESSE OF LANGEAIS,2
+Duchesse de Maufrigneuse,THE DEPUTY OF ARCIS,6
+Duchesse de Maufrigneuse,URSULA,1
+Duchesse de Maufrigneuse,SCENES FROM A COURTESANS LIFE,37
+Duchesse de Maufrigneuse,THE SECRETS OF THE PRINCESSE DE CADIGNAN,17
+Duchesse de Maufrigneuse,THE COMMISSION IN LUNACY,1
+Duchesse de Maufrigneuse,A DISTINGUISHED PROVINCIAL AT PARIS,1
+Duchesse de Maufrigneuse,AN HISTORICAL MYSTERY,2
+Duchesse de Maufrigneuse,A WOMAN OF THIRTY,1
+Duchesse de Maufrigneuse,BEATRIX,1
+Duchesse de Maufrigneuse,THE MUSE OF THE DEPARTMENT,1
+Duchesse de Maufrigneuse,ANOTHER STUDY OF WOMAN,4
+Duchesse de Maufrigneuse,THE COLLECTION OF ANTIQUITIES,17
+Duchesse de Maufrigneuse,MODESTE MIGNON,12
+Duchesse de Maufrigneuse,THE LILY OF THE VALLEY,1
+Desplein,THE BROTHERHOOD OF CONSOLATION,1
+Desplein,HONORINE,2
+Desplein,SCENES FROM A COURTESANS LIFE,13
+Desplein,COUSIN PONS,2
+Desplein,THE ATHEISTS MASS,42
+Desplein,THE COMMISSION IN LUNACY,2
+Desplein,A DISTINGUISHED PROVINCIAL AT PARIS,2
+Desplein,THE VILLAGE RECTOR,1
+Desplein,PIERRETTE,3
+Desplein,THE THIRTEEN,3
+Desplein,THE MUSE OF THE DEPARTMENT,1
+Desplein,TWO POETS,2
+Desplein,MODESTE MIGNON,12
+Duc de Navarreins,THE DUCHESSE OF LANGEAIS,16
+Duc de Navarreins,SCENES FROM A COURTESANS LIFE,2
+Duc de Navarreins,THE MARRIAGE CONTRACT,1
+Duc de Navarreins,THE TWO BROTHERS,1
+Duc de Navarreins,THE SECRETS OF THE PRINCESSE DE CADIGNAN,3
+Duc de Navarreins,THE MAGIC SKIN,4
+Duc de Navarreins,A DISTINGUISHED PROVINCIAL AT PARIS,5
+Duc de Navarreins,THE VILLAGE RECTOR,7
+Duc de Navarreins,AN HISTORICAL MYSTERY,1
+Duc de Navarreins,COLONEL CHABERT,1
+Duc de Navarreins,THE MUSE OF THE DEPARTMENT,6
+Duc de Navarreins,AN OLD MAID,1
+Duc de Navarreins,THE COLLECTION OF ANTIQUITIES,5
+General de Montriveau,THE DUCHESSE OF LANGEAIS,168
+General de Montriveau,THE MARRIAGE CONTRACT,3
+General de Montriveau,THE COMMISSION IN LUNACY,1
+General de Montriveau,A DISTINGUISHED PROVINCIAL AT PARIS,10
+General de Montriveau,FATHER GORIOT,4
+General de Montriveau,THE MUSE OF THE DEPARTMENT,2
+General de Montriveau,TWO POETS,2
+General de Montriveau,ANOTHER STUDY OF WOMAN,2
+General de Montriveau,THE LILY OF THE VALLEY,1
+Comtesse de Serizy,THE DUCHESSE OF LANGEAIS,12
+Comtesse de Serizy,HONORINE,1
+Comtesse de Serizy,URSULA,5
+Comtesse de Serizy,SCENES FROM A COURTESANS LIFE,95
+Comtesse de Serizy,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Comtesse de Serizy,THE MAGIC SKIN,1
+Comtesse de Serizy,A DISTINGUISHED PROVINCIAL AT PARIS,5
+Comtesse de Serizy,COUSIN BETTY,1
+Comtesse de Serizy,THE FIRM OF NUCINGEN,1
+Comtesse de Serizy,FATHER GORIOT,1
+Comtesse de Serizy,A WOMAN OF THIRTY,8
+Comtesse de Serizy,THE THIRTEEN,4
+Comtesse de Serizy,A START IN LIFE,9
+Comtesse de Serizy,THE COLLECTION OF ANTIQUITIES,3
+Comtesse de Serizy,MODESTE MIGNON,1
+Comtesse de Serizy,PAZ,5
+Marquis de Ronquerolles,THE DUCHESSE OF LANGEAIS,6
+Marquis de Ronquerolles,THE DEPUTY OF ARCIS,16
+Marquis de Ronquerolles,URSULA,1
+Marquis de Ronquerolles,SCENES FROM A COURTESANS LIFE,2
+Marquis de Ronquerolles,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Marquis de Ronquerolles,A DISTINGUISHED PROVINCIAL AT PARIS,1
+Marquis de Ronquerolles,THE GIRL WITH THE GOLDEN EYES,1
+Marquis de Ronquerolles,FATHER GORIOT,1
+Marquis de Ronquerolles,A WOMAN OF THIRTY,3
+Marquis de Ronquerolles,THE THIRTEEN,8
+Marquis de Ronquerolles,RISE AND FALL OF CESAR BIROTTEAU,1
+Marquis de Ronquerolles,A START IN LIFE,2
+Marquis de Ronquerolles,THE COLLECTION OF ANTIQUITIES,1
+Marquis de Ronquerolles,SONS OF THE SOIL,10
+Marquis de Ronquerolles,PAZ,8
+Duc de Grandlieu,THE DUCHESSE OF LANGEAIS,9
+Duc de Grandlieu,SCENES FROM A COURTESANS LIFE,66
+Duc de Grandlieu,A DISTINGUISHED PROVINCIAL AT PARIS,1
+Duc de Grandlieu,AN HISTORICAL MYSTERY,1
+Duc de Grandlieu,BEATRIX,17
+Duc de Grandlieu,MODESTE MIGNON,2
+Baronne Delphine de Nucingen,THE DEPUTY OF ARCIS,5
+Baronne Delphine de Nucingen,A DAUGHTER OF EVE,13
+Baronne Delphine de Nucingen,SCENES FROM A COURTESANS LIFE,21
+Baronne Delphine de Nucingen,BUREAUCRACY,2
+Baronne Delphine de Nucingen,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Baronne Delphine de Nucingen,THE FIRM OF NUCINGEN,19
+Baronne Delphine de Nucingen,FATHER GORIOT,176
+Baronne Delphine de Nucingen,THE THIRTEEN,2
+Baronne Delphine de Nucingen,RISE AND FALL OF CESAR BIROTTEAU,7
+Baronne Delphine de Nucingen,ANOTHER STUDY OF WOMAN,3
+Stidmann,THE DEPUTY OF ARCIS,2
+Stidmann,UNCONSCIOUS COMEDIANS,1
+Stidmann,COUSIN PONS,2
+Stidmann,COUSIN BETTY,64
+Stidmann,BEATRIX,3
+Stidmann,MODESTE MIGNON,1
+Virginie Blondet,THE DEPUTY OF ARCIS,2
+Virginie Blondet,A DAUGHTER OF EVE,6
+Virginie Blondet,THE SECRETS OF THE PRINCESSE DE CADIGNAN,6
+Virginie Blondet,A DISTINGUISHED PROVINCIAL AT PARIS,15
+Virginie Blondet,ANOTHER STUDY OF WOMAN,3
+Virginie Blondet,THE COLLECTION OF ANTIQUITIES,6
+Virginie Blondet,SONS OF THE SOIL,24
+Leon de Lora,THE DEPUTY OF ARCIS,1
+Leon de Lora,UNCONSCIOUS COMEDIANS,19
+Leon de Lora,HONORINE,6
+Leon de Lora,SCENES FROM A COURTESANS LIFE,1
+Leon de Lora,THE TWO BROTHERS,2
+Leon de Lora,COUSIN BETTY,17
+Leon de Lora,FATHER GORIOT,2
+Leon de Lora,BEATRIX,14
+Leon de Lora,A START IN LIFE,110
+Leon de Lora,PIERRE GRASSOU,3
+Lucien de Rubempré,THE DEPUTY OF ARCIS,3
+Lucien de Rubempré,URSULA,3
+Lucien de Rubempré,SCENES FROM A COURTESANS LIFE,684
+Lucien de Rubempré,THE TWO BROTHERS,1
+Lucien de Rubempré,COUSIN PONS,2
+Lucien de Rubempré,BUREAUCRACY,1
+Lucien de Rubempré,THE SECRETS OF THE PRINCESSE DE CADIGNAN,2
+Lucien de Rubempré,A DISTINGUISHED PROVINCIAL AT PARIS,1028
+Lucien de Rubempré,EVE AND DAVID,378
+Lucien de Rubempré,BEATRIX,1
+Lucien de Rubempré,TWO POETS,324
+Lucien de Rubempré,MODESTE MIGNON,2
+Félicien Vernou,THE DEPUTY OF ARCIS,2
+Félicien Vernou,A DAUGHTER OF EVE,4
+Félicien Vernou,SCENES FROM A COURTESANS LIFE,6
+Félicien Vernou,THE TWO BROTHERS,2
+Félicien Vernou,A DISTINGUISHED PROVINCIAL AT PARIS,66
+Félicien Vernou,COUSIN BETTY,1
+Marechal de Montcornet,A DAUGHTER OF EVE,1
+Marechal de Montcornet,DOMESTIC PEACE,32
+Marechal de Montcornet,SCENES FROM A COURTESANS LIFE,2
+Marechal de Montcornet,COUSIN BETTY,19
+Marechal de Montcornet,THE MUSE OF THE DEPARTMENT,1
+Marechal de Montcornet,THE COLLECTION OF ANTIQUITIES,4
+Marechal de Montcornet,SONS OF THE SOIL,74
+Marechal de Montcornet,A MAN OF BUSINESS,1
+Claude Vignon,A DAUGHTER OF EVE,2
+Claude Vignon,UNCONSCIOUS COMEDIANS,5
+Claude Vignon,HONORINE,3
+Claude Vignon,THE MAGIC SKIN,2
+Claude Vignon,A DISTINGUISHED PROVINCIAL AT PARIS,30
+Claude Vignon,COUSIN BETTY,31
+Claude Vignon,BEATRIX,57
+Claude Vignon,THE MUSE OF THE DEPARTMENT,1
+Hippolyte Schinner,A DAUGHTER OF EVE,2
+Hippolyte Schinner,UNCONSCIOUS COMEDIANS,3
+Hippolyte Schinner,SCENES FROM A COURTESANS LIFE,1
+Hippolyte Schinner,THE TWO BROTHERS,7
+Hippolyte Schinner,BUREAUCRACY,4
+Hippolyte Schinner,A WOMAN OF THIRTY,1
+Hippolyte Schinner,A START IN LIFE,52
+Hippolyte Schinner,THE PURSE,65
+Hippolyte Schinner,PIERRE GRASSOU,10
+Hippolyte Schinner,ALBERT SAVARUS,2
+Hippolyte Schinner,MODESTE MIGNON,1
+Hippolyte Schinner,PAZ,2
+Madame Josephine du Ronceret,UNCONSCIOUS COMEDIANS,2
+Madame Josephine du Ronceret,COUSIN BETTY,6
+Madame Josephine du Ronceret,BEATRIX,95
+Madame Josephine du Ronceret,THE MUSE OF THE DEPARTMENT,12
+Comte de Serizy,HONORINE,12
+Comte de Serizy,SCENES FROM A COURTESANS LIFE,51
+Comte de Serizy,THE MARRIAGE CONTRACT,2
+Comte de Serizy,THE TWO BROTHERS,7
+Comte de Serizy,BUREAUCRACY,1
+Comte de Serizy,THE SECRETS OF THE PRINCESSE DE CADIGNAN,1
+Comte de Serizy,THE COMMISSION IN LUNACY,1
+Comte de Serizy,FATHER GORIOT,1
+Comte de Serizy,A START IN LIFE,76
+Comte de Serizy,SONS OF THE SOIL,1
+Comte de Serizy,MODESTE MIGNON,3
+Felix Gaudissart,HONORINE,1
+Felix Gaudissart,SCENES FROM A COURTESANS LIFE,4
+Felix Gaudissart,COUSIN PONS,62
+Felix Gaudissart,THE ILLUSTRIOUS GAUDISSART,92
+Felix Gaudissart,GAUDISSART II,5
+Felix Gaudissart,RISE AND FALL OF CESAR BIROTTEAU,57
+Baronne Marie-Louise du Châtelet,SCENES FROM A COURTESANS LIFE,7
+Baronne Marie-Louise du Châtelet,BUREAUCRACY,1
+Baronne Marie-Louise du Châtelet,A DISTINGUISHED PROVINCIAL AT PARIS,94
+Baronne Marie-Louise du Châtelet,EVE AND DAVID,29
+Baronne Marie-Louise du Châtelet,TWO POETS,119
+Duc de Lenoncourt,SCENES FROM A COURTESANS LIFE,3
+Duc de Lenoncourt,A DISTINGUISHED PROVINCIAL AT PARIS,2
+Duc de Lenoncourt,AN HISTORICAL MYSTERY,1
+Duc de Lenoncourt,BEATRIX,2
+Duc de Lenoncourt,RISE AND FALL OF CESAR BIROTTEAU,6
+Duc de Lenoncourt,AN OLD MAID,1
+Duc de Lenoncourt,THE COLLECTION OF ANTIQUITIES,6
+Duc de Lenoncourt,THE LILY OF THE VALLEY,20
+Madame Roguin,VENDETTA,3
+Madame Roguin,THE FIRM OF NUCINGEN,1
+Madame Roguin,AT THE SIGN OF THE CAT AND RACKET,15
+Madame Roguin,PIERRETTE,3
+Madame Roguin,A SECOND HOME,1
+Madame Roguin,RISE AND FALL OF CESAR BIROTTEAU,21
+Madame Roguin,THE MUSE OF THE DEPARTMENT,2
+Vicomtesse de Beauséant,FATHER GORIOT,78
+Vicomtesse de Beauséant,BEATRIX,1
+Vicomtesse de Beauséant,THE DESERTED WOMAN,56
+Vicomtesse de Beauséant,THE COLLECTION OF ANTIQUITIES,2
+Vicomtesse de Beauséant,ALBERT SAVARUS,2
+Vicomtesse de Beauséant,THE LILY OF THE VALLEY,1
