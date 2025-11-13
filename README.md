@@ -14,10 +14,12 @@ This is a network graph showing the top 50 recurring characters in Balzac's *La 
     - Character: shows all characters in the graph. Select a novel in the top menu to highlight which characters are         present.
     - Novel: shows all novels in the graph. Select a character in the top menu to highlight which novels they appear in.     Select a "Scene" to see which novels are considered part of that scene in *La Comedie Humaine.*
 - **Filter by novel/character connections**:
-    -   *"From character":* select 1 or more characters to see all their novel appearances and which novels they appear in     together.
+    -   *"From character":* select 1 or more characters to see all their novel appearances and which novels they appear in together.
     -   *"To novel":* select 1 or more novels to see which characters are present and which characters overlap.
 -   **Reset filters** by clicking the reset filters button.
-
+- To find co-occurrences:
+    - Option 1: Select *Filter by novel/character connections*, select 2 or more characters, drag novel nodes to find         overlaps.
+    - Option 2: Select *Filter by novel/character connections*, select a character. In the top menu, select the second         character. The novels that are highlighted are novels where both appear. 
 
 ## Understanding the Data 
 Character mentions were retrieved through a trained spaCy NER model. Raw references were verified against novel text and used to update patterns to include all aliases and character titles in the final graph. 
