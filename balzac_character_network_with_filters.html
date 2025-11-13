@@ -874,18 +874,18 @@ if (filter['item'] === 'node') {
                   // adding nodes and edges to the graph
                   data = {nodes: nodes, edges: edges};
                   for (let nodeId in allNodes) {
-                    allNodes[nodeId].size += 50; // or allNodes[nodeId].size += 5 if using size
+                    allNodes[nodeId].size += 70; // or allNodes[nodeId].size += 5 if using size
                     }
                     nodes.update(Object.values(allNodes));
                     
                     
                  var options = {
                     nodes: {
-                    font: { size: 180, face: "Merriweather", align: "center" },
+                    font: { size: 220, face: "Merriweather", align: "center" },
                     scaling: { 
-                    label: { min: 150, max: 200 },
+                    label: { min: 150, max: 250 },
                     min: 100,
-                    max: 400
+                    max: 500
                         }
                     },
                     edges: {
