@@ -37,7 +37,7 @@ The graph captures **any** mention of a character in a novel, whether they actua
 
 ### Methodological Notes and Entity Matching
 
-Designing the variant names required both pattern design and a bit of research. Balzac is remarkably consistent in referring to characters: nobles are almost always cited by their titles and last name (e.g., Comtesse de Montcornet, Madame/Mme de Montcornet). Regular expressions handled the common patterns, but they did not capture earlier names, aliases, or life changes (e.g., Madame de Montcornet was previously Mlle. Virginie de Troisville and later Madame Blondet). 
+Designing the variant names required both pattern design and a bit of research. Balzac is remarkably consistent in referring to characters: nobles are almost always cited by their titles and last name (e.g., Comtesse de Montcornet, Madame/Mme de Montcornet). Regular expressions handled the common patterns, but they did not capture earlier names and titles, aliases, or marital name changes (e.g., Madame de Montcornet was previously Mlle. Virginie de Troisville and later Madame Blondet). 
 
 To capture these, I relied on Cerfberr and Christophe’s *Repertory of the Comédie Humaine*, which provided maiden names and aliases for building a variant dictionary. Each variant name was labeled “PERSON” in spaCy’s entity ruler, and a supplementary fuzzy name dictionary was created to catch close variations (e.g., “Felix” or “Vandanesse” for “Felix de Vandanesse”).
 
