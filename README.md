@@ -5,36 +5,55 @@ This is a network graph showing the top 50 recurring characters in Balzac's *La 
 ## View the Graph
 [Click here to open the graph](https://suzcubed.github.io/balzacnetwork/balzac_character_network_with_filters.html)
 
-## How to Use
-- **Click character or novel nodes** to easily see their connections.
-- **Drag character or novel nodes** to reposition them and pull out their connections.
-- **Zoom in on nodes and connections** using your mouse wheel.
-- **Select Filters** to narrow down the graph: selecting character or novel highlights all connections to the selected node.
-- **Filter the Network** by node type:
-    - Character: shows all characters in the graph. Select a novel in the top menu to highlight which characters are         present.
-    - Novel: shows all novels in the graph. Select a character in the top menu to highlight which novels they appear in.     Select a "Scene" to see which novels are considered part of that scene in *La Comedie Humaine.*
-- **Filter by novel/character connections**:
-    -   *"From character":* select 1 or more characters to see all their novel appearances and which novels they appear in together.
-    -   *"To novel":* select 1 or more novels to see which characters are present and which characters overlap.
--   **Reset filters** by clicking the reset filters button.
-- To find co-occurrences:
-    - Option 1: Select *Filter by novel/character connections*, select 2 or more characters, drag novel nodes to find         overlaps.
-    - Option 2: Select *Filter by novel/character connections*, select a character. In the top menu, select the second         character. The novels that are highlighted are novels where both appear. 
+# 01 - How to Use
+- Click character or novel nodes to see their connections.  
+- Drag nodes to reposition them and pull out their links.  
+- Zoom with your mouse wheel.
 
-## Understanding the Data 
-Character mentions were retrieved through a trained spaCy NER model. Raw references were verified against novel text and used to update patterns to include all aliases and character titles in the final graph. 
+### Filters
+- Select **Filters** to narrow the graph: choosing a character or novel highlights all its connections.
 
-The graph captures any mention of a character in a novel, whether they actually appear or not. This was an intentional decision to ensure the graph captured characters' relative influence across *La Comedie Humaine*.
-- Connection lines between characters and novels are weighted based on the frequency of the character's appearance in the novel. A thinner line denotes minor mentions (e.g., a single appearance at a party or a reference such as "a Nucingen" indicating a wealthy figure), while thicker lines indicate increasing centrality.
+### Filter by Node Type
+- **Character:** shows all characters. Select a novel in the top menu to highlight who appears in it.  
+- **Novel:** shows all novels. Select a character in the top menu to highlight their novels. Select **Novels by Scene from *La Comedie Humaine*** to see which novels belong to each scene in *La Comédie Humaine.*
+
+### Filter by Novel/Character Connections
+- **From character:** choose one or more characters to see all their novel appearances and overlaps.  
+- **To novel:** choose one or more novels to see which characters appear and overlap.
+
+- Reset filters with the reset button.
+
+### Finding Co-occurrences
+- **Option 1:** Select *Filter by novel/character connections*, choose 2+ characters, then drag novel nodes to reveal overlaps.  
+- **Option 2:** Select the same filter, pick a character, then choose a second character in the top menu; highlighted novels show where both appear.
+
+# 02 - Understanding the Data 
+Character mentions were retrieved through a trained spaCy NER model. Raw references were verified against the novel text and used to update patterns to include all aliases and character titles. This ensured all references to each character were counted in the final graph.
+
+The graph captures **any** mention of a character in a novel, whether they actually appear or not. This was an intentional decision to ensure the graph captured characters' relative influence across *La Comedie Humaine*.
+- Connection lines between characters and novels are weighted based on the frequency of the character's appearance in the novel. A thinner line denotes minor mentions (e.g., a single appearance at a party or a reference such as "a Nucingen" indicating a wealthy figure), while thicker lines indicate increasing centrality. Zoom in to better see line weights.
 - Character nodes are scaled based on character occurrence counts across the corpus.
 - Novel nodes are scaled based on the number of characters who appear.
 
-## Planned Updates 
-Adding metadata to character tool tips & the ability to filter by character attributes (gender, class, occupation). 
-Adding the ability to filter characters by number of appearances. 
+### Methodological Notes and Entity Matching
 
-## Future Updates
-Data cleaning, pattern design, and reference extractions of the next batch of 50 characters.
+Designing the variant names required both pattern design and a bit of research. Balzac is remarkably consistent in referring to characters: nobles are almost always cited by their titles and last name (e.g., Comtesse de Montcornet, Madame/Mme de Montcornet). Regular expressions handled the common patterns, but they did not capture earlier names and titles, aliases, or marital name changes (e.g., Madame de Montcornet was previously Mlle. Virginie de Troisville and later Madame Blondet). 
+
+To capture these, I relied on Cerfberr and Christophe’s *Repertory of the Comédie Humaine*, which provided maiden names and aliases for building a variant dictionary. Each variant name was labeled “PERSON” in spaCy’s entity ruler, and a supplementary fuzzy name dictionary was created to catch close variations (e.g., “Felix” or “Vandanesse” for “Felix de Vandanesse”).
+
+With the entity ruler in place, exact matches for 50 central characters were extracted across all novels. Rapidfuzz was then used to identify near matches. Each captured match was manually verified against the text to ensure accuracy—a feasible process given Balzac’s consistent naming and the small set of characters.
+
+### Reflection on Findings
+
+One way to explore the network is through key figures like Lucien de Rubempré and Eugène de Rastignac. From a purely data-driven perspective, these characters are mentioned most often and thus dominate the network as our largest nodes. Both had similar starting points: modest wealth but supportive families and tenuous ties to the *monde brillante.* 
+
+We can visually trace their trajectories. Lucien rises and then falls, and we see his central prominence in the *Lost Illusions* works taper off into minor mentions in other works (thin lines). Meanwhile Rastignac steadily ascends, and we see his prominence throughout the corpus through gradations of line thickness. The goal of entity mapping was to create a foundation for exploring character recurrence and create reading pathways to track these sorts of rises and falls. 
+
+
+# 03 - Planned Updates 
+- Add metadata to character tooltips and filters for character attributes (gender, class, occupation).
+- Add filters for characters by number of appearances.
+- Continue data cleaning, pattern design, and reference extraction for the next batch of 50 characters.
 
 ## Sources
 All texts sourced from Project Gutenberg
