@@ -12,9 +12,10 @@ This is a network graph showing the top 50 recurring characters in Balzac's *La 
 
 ### Filters
 - Select **Filters** to narrow the graph: choosing a character or novel highlights all its connections.
+- Select a novel in the top menu to highlight the characters who appear in it.
 
 ### Filter by Node Type
-- **Character:** shows all characters. Select a novel in the top menu to highlight who appears in it.  
+- **Character:** shows all characters. *UPDATE 02-09-26* - Added gender and social class character filters. 
 - **Novel:** shows all novels. Select a character in the top menu to highlight their novels. Select **Novels by Scene from *La Comedie Humaine*** to see which novels belong to each scene in *La Comédie Humaine.*
 
 ### Filter by Novel/Character Connections
@@ -23,7 +24,7 @@ This is a network graph showing the top 50 recurring characters in Balzac's *La 
 
 - Reset filters with the reset button.
 
-### Finding Co-occurrences
+### Finding Character Co-occurrences
 - **Option 1:** Select *Filter by novel/character connections*, choose 2+ characters, then drag novel nodes to reveal overlaps.  
 - **Option 2:** Select the same filter, pick a character, then choose a second character in the top menu; highlighted novels show where both appear.
 
@@ -45,19 +46,27 @@ With the entity ruler in place, exact matches for 50 central characters were ext
 
 ### Reflection on Findings
 
-One way to explore the network is through key figures like Lucien de Rubempré and Eugène de Rastignac. From a purely data-driven perspective, these characters are mentioned most often and thus dominate the network as our largest nodes. Both had similar starting points: modest wealth but supportive families and tenuous ties to the *monde brillante.* 
+One way to explore the network is through key figures like Lucien de Rubempré and Eugène de Rastignac. From a purely data-driven perspective, these characters are mentioned most often and appear as our largest nodes. Both had similar starting points: modest wealth but supportive families and tenuous ties to the *monde brillante.* 
 
 We can visually trace their trajectories. Lucien rises and then falls, and we see his central prominence in the *Lost Illusions* works taper off into minor mentions in other works (thin lines). Meanwhile Rastignac steadily ascends, and we see his prominence throughout the corpus through gradations of line thickness. The goal of entity mapping was to create a foundation for exploring character recurrence and create reading pathways to track these sorts of rises and falls. 
-
-
-# 03 - Planned Updates 
-- Add metadata to character tooltips and filters for character attributes (gender, class, occupation).
-- Add filters for characters by number of appearances.
-- Continue data cleaning, pattern design, and reference extraction for the next batch of 50 characters.
 
 ## Sources
 All texts sourced from Project Gutenberg
 Character aliases and titles validated with:
 Cerfberr, and Christophe (1902): *Repertory of the Comedie Humaine.*
+
+
+## 02-09-26 - UPDATES
+- Updated graph HTML:
+  - Added gender and social class data and filters
+  - Added character descriptions as hover-over tooltips
+- Added CSV with character metadata
+- Updated CSV of nodes for the pyvis graph
+
+
+## Planned Updates
+- Add filters for characters by number of appearances.
+- Continue data cleaning, pattern design, and reference extraction for the next batch of 50 characters.
+
 
  
