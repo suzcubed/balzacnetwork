@@ -64,7 +64,8 @@ Cerfberr, and Christophe (1902): *Repertory of the Comedie Humaine.*
 - Updated CSV of nodes for the pyvis graph
 
 
-## Planned Updates
+## Planned Updates 
+- Adjust node sizing to better reflect character centrality. 
 - Add filters for characters by number of appearances.
 - Continue data cleaning, pattern design, and reference extraction for the next batch of 50 characters.
 
