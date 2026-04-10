@@ -1,6 +1,5 @@
 # Balzac Character Network
-This is a network graph showing the top 50 recurring characters in Balzac's *La Comedie Humaine* by novel appearances, created using Pyvis. 
-
+Built to explore character recurrence and reading pathways across Balzac's interconnected *La Comedie Humaine*, this network graph maps the top 50 recurring characters by novel appearance.
 
 ## View the Graph
 [Click here to open the graph](https://suzcubed.github.io/balzacnetwork/balzac_character_network_with_filters.html)
@@ -38,9 +37,9 @@ The graph captures **any** mention of a character in a novel, whether they actua
 
 ### Methodological Notes and Entity Matching
 
-Designing the variant names required both pattern design and a bit of research. Balzac is remarkably consistent in referring to characters: nobles are almost always cited by their titles and last name (e.g., Comtesse de Montcornet, Madame/Mme de Montcornet). Regular expressions handled the common patterns, but they did not capture earlier names and titles, aliases, or marital name changes (e.g., Madame de Montcornet was previously Mlle. Virginie de Troisville and later Madame Blondet). 
+Designing the variant names required both pattern design and a bit of research. Balzac is remarkably consistent in referring to characters: nobles are almost always cited by their titles and last name (e.g., Comtesse de Montcornet, Madame/Mme de Montcornet). Regular expressions handled the common patterns, but they did not capture earlier names and titles, aliases, or marital name changes (e.g., Madame de Montcornet was previously Mlle. Virginie de Troisville and later Madame Blondet). This resulted in most women characters collapsing into their husbands' identities in first iterations.
 
-To capture these, I relied on Cerfberr and Christophe’s *Repertory of the Comédie Humaine*, which provided maiden names and aliases for building a variant dictionary. Each variant name was labeled “PERSON” in spaCy’s entity ruler, and a supplementary fuzzy name dictionary was created to catch close variations (e.g., “Felix” or “Vandanesse” for “Felix de Vandanesse”).
+To capture variant name complexity, I relied on Cerfberr and Christophe’s *Repertory of the Comédie Humaine*, which provided maiden names and aliases for building a variant dictionary. Each variant name was labeled “PERSON” in spaCy’s entity ruler, and a supplementary fuzzy name dictionary was created to catch close variations (e.g., “Felix” or “Vandanesse” for “Felix de Vandanesse”).
 
 With the entity ruler in place, exact matches for 50 central characters were extracted across all novels. Rapidfuzz was then used to identify near matches. Each captured match was manually verified against the text to ensure accuracy. 
 
