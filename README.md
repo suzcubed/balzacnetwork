@@ -31,8 +31,8 @@ Built to explore character recurrence and reading pathways across Balzac's inter
 Character mentions were retrieved through a spaCy NER model trained on character name patterns. Raw references were verified against the novel text and used to update patterns to include all aliases and character titles. This ensured all references to each character were counted in the final graph.
 
 The graph captures **any** mention of a character in a novel, whether they actually appear or not. This was an intentional decision to ensure the graph captured characters' relative influence across *La Comedie Humaine*.
-- Connection lines between characters and novels are weighted based on the frequency of the character's appearance in the novel. A thinner line denotes minor mentions (e.g., a single appearance at a party or a reference such as "a Nucingen" indicating a wealthy figure), while thicker lines indicate increasing centrality. Zoom in to better see line weights.
-- Character nodes are scaled based on character occurrence frequency across the corpus, rather than network centrality. 
+- Connection lines between characters and novels are weighted based on the frequency of the character's appearance in the novel. A thinner line denotes minor mentions (e.g., a single appearance at a party or a reference such as "a Nucingen" indicating a wealthy figure), while thicker lines indicate increasing centrality to the plot. Zoom in to better see line weights.
+- Character nodes are scaled based on character mention frequency across the corpus.
 - Novel nodes are scaled based on the number of characters who appear.
 
 ### Methodological Notes and Entity Matching
@@ -64,7 +64,7 @@ Cerfberr, and Christophe (1902): *Repertory of the Comedie Humaine.*
 
 
 ## Planned Updates 
-- Adjust node sizing to better reflect character frequency. 
+- Adjust node sizing by weighted degree to better reflect corpus centrality. 
 - Add filters for characters by number of appearances.
 - Continue data cleaning, pattern design, and reference extraction for the next batch of 50 characters.
 
