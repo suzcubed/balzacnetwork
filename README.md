@@ -11,10 +11,10 @@ Built to explore character recurrence and reading pathways across Balzac's inter
 
 ### Filters
 - Select **Filters** to narrow the graph: choosing a character or novel highlights all its connections.
-- Select a novel in the top menu to highlight the characters who appear in it.
+- Select a novel in the top menu to highlight the characters who appear in it. Characters may then be filtered by social class or gender. 
 
 ### Filter by Node Type
-- **Character:** shows all characters. *UPDATE 02-09-26* - Added gender and social class character filters. 
+- **Character:** shows all characters. *UPDATE 02-09-26* - Added gender and social class character filters.
 - **Novel:** shows all novels. Select a character in the top menu to highlight their novels. Select **Novels by Scene from *La Comedie Humaine*** to see which novels belong to each scene in *La Comédie Humaine.*
 
 ### Filter by Novel/Character Connections
